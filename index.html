@@ -287,8 +287,170 @@
   .field-row{ display:flex; gap:14px; flex-wrap:wrap; }
   .field-row > div{ flex:1; min-width:140px; }
 
+  /* ===== Nav ===== */
+  .site-nav{
+    position:sticky; top:0; z-index:20;
+    background:var(--teal-deep);
+    display:flex; align-items:center; gap:18px;
+    padding:12px 22px;
+    border-radius:0 0 12px 12px;
+    margin-bottom:0;
+  }
+  .site-nav .nav-mark{ font-family:'SVN Vintage', Georgia, serif; color:var(--cream); font-size:15px; margin-right:auto; }
+  .site-nav a{
+    font-family:Arial, sans-serif;
+    font-size:11px;
+    color:var(--teal-light);
+    text-decoration:none;
+  }
+  .site-nav a:hover{ color:var(--cream); }
+
+  /* ===== Hero ===== */
+  .hero{
+    background:linear-gradient(160deg, var(--teal-deep), var(--teal));
+    border-radius:14px;
+    padding:38px 30px;
+    text-align:center;
+    color:var(--cream);
+    margin:20px 0;
+  }
+  .hero .ksf-mark{ margin:0 auto 10px; width:58px; height:58px; }
+  .hero h1{
+    font-family:'SVN Vintage', Georgia, serif;
+    font-size:34px;
+    margin:0 0 6px;
+  }
+  .hero h1 span{ color:var(--gold); }
+  .hero p{
+    font-family:Arial, sans-serif;
+    font-size:12px;
+    color:var(--cream);
+    opacity:.85;
+    max-width:420px;
+    margin:0 auto;
+  }
+
+  .section-label{
+    font-family:'SVN Vintage', Georgia, serif;
+    font-size:20px;
+    color:var(--teal-deep);
+    margin:26px 4px 4px;
+  }
+
+  /* ===== Gift basket builder ===== */
+  .basket-wrap{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+    align-items:flex-start;
+  }
+  .basket-form{
+    flex:1;
+    min-width:280px;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:18px 20px;
+  }
+  .basket-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 0;
+    border-bottom:1px dashed var(--line);
+    font-family:Arial, sans-serif;
+    font-size:11.5px;
+  }
+  .basket-item:last-of-type{ border-bottom:none; }
+  .basket-item .b-name{ flex:1.4; color:var(--ink); }
+  .basket-item .b-wt{ flex:0.7; color:#6b6050; font-size:10.5px; }
+  .basket-item input[type="number"]{
+    width:52px;
+    font-family:Arial, sans-serif;
+    font-size:11px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:4px 6px;
+    background:var(--cream);
+  }
+  .basket-item .b-price{ display:flex; align-items:center; gap:3px; flex:1; }
+  .basket-item .b-price input{ width:70px; }
+  .basket-totals{
+    margin-top:12px;
+    padding-top:12px;
+    border-top:2px solid var(--teal-deep);
+    font-family:Arial, sans-serif;
+    font-size:12.5px;
+    color:var(--teal-deep);
+    display:flex;
+    justify-content:space-between;
+  }
+  .basket-note{
+    font-family:Arial, sans-serif;
+    font-size:9.5px;
+    color:#8a7f6b;
+    margin-top:10px;
+  }
+
+  .basket-preview-col{ flex:1; min-width:280px; display:flex; flex-direction:column; align-items:center; }
+  #basket-preview{
+    width:300px;
+    background:var(--paper);
+    border:2px solid var(--ink);
+    border-radius:12px;
+    overflow:hidden;
+  }
+  .bp-head{
+    background:var(--teal-deep);
+    padding:16px 20px 12px;
+    text-align:center;
+  }
+  .bp-head .ksf-mark{ width:44px; height:44px; margin:0 auto 6px; }
+  .bp-head .bp-title{ font-family:'SVN Vintage', Georgia, serif; font-size:20px; color:var(--cream); }
+  .bp-head .bp-sub{ font-family:Arial, sans-serif; font-size:9px; color:var(--teal-light); letter-spacing:.05em; margin-top:2px; }
+  #basket-items{ padding:10px 20px; }
+  .bp-line{
+    display:flex; justify-content:space-between;
+    font-family:Arial, sans-serif; font-size:10.5px;
+    padding:5px 0; border-bottom:1px dashed var(--line);
+  }
+  .bp-line:last-child{ border-bottom:none; }
+  .bp-empty{ font-family:Arial, sans-serif; font-size:10.5px; color:#8a7f6b; text-align:center; padding:16px 0; }
+  .bp-footer{
+    padding:12px 20px 16px;
+    border-top:1px solid var(--line);
+    font-family:Arial, sans-serif;
+  }
+  .bp-total-row{ display:flex; justify-content:space-between; font-size:12px; color:var(--teal-deep); font-weight:bold; margin-bottom:2px; }
+  .bp-wt-row{ display:flex; justify-content:space-between; font-size:9.5px; color:#6b6050; }
+  .export-btn{
+    margin-top:14px;
+    font-family:Arial, sans-serif;
+    font-size:12px;
+    font-weight:bold;
+    color:var(--cream);
+    background:var(--clay);
+    border:none;
+    border-radius:8px;
+    padding:10px 18px;
+    cursor:pointer;
+  }
+  .export-btn:hover{ opacity:.9; }
+
+  /* ===== Footer ===== */
+  .site-footer{
+    margin-top:30px;
+    padding:20px 22px;
+    text-align:center;
+    font-family:Arial, sans-serif;
+    font-size:10px;
+    color:#8a7f6b;
+  }
+  .site-footer .f-brand{ font-family:'SVN Vintage', Georgia, serif; font-size:14px; color:var(--teal-deep); margin-bottom:4px; }
+
   @media (max-width: 660px){
     .mini-label{ width:100%; max-width:320px; }
+    .site-nav{ flex-wrap:wrap; gap:10px 14px; }
   }
 
   @media print{
@@ -302,14 +464,22 @@
 <body>
 <div class="wrap">
 
-  <div class="header">
-    <div class="mark"><span>KSF</span></div>
-    <div>
-      <h1>Trang Chủ Bộ Nhãn Sản Phẩm</h1>
-      <p>Khe Sanh Farm</p>
-    </div>
+<nav class="site-nav">
+  <div class="nav-mark">KSF</div>
+  <a href="#san-pham">Sản phẩm</a>
+  <a href="#gio-qua">Giỏ quà tặng</a>
+  <a href="#gui-anh">Gửi ảnh &amp; góp ý</a>
+</nav>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="ksf-mark"><span>KSF</span></div>
+    <h1>Khe Sanh <span>Farm</span></h1>
+    <p>Nông sản sạch vùng cao Quảng Trị — chuối sấy giòn, hạt tiêu, mắc ca và các dòng tinh bột nguyên chất.</p>
   </div>
 
+  <div class="section-label" id="san-pham">Sản phẩm</div>
   <div class="legend">Nhấp vào tên sản phẩm để xem nhãn mặt trước &amp; mặt sau.</div>
 
     <details class="product">
@@ -344,7 +514,7 @@
             <div class="ingredients-text">Chuối chín 100%, sấy giòn chân không, không đường, không dầu, không chất bảo quản.</div>
           </div>
           <div class="front-footer">
-            <span>NET WT 150g</span>
+            <span>NET WT 250g</span>
             <span>KHESANHFARM.COM</span>
           </div>
         </div>
@@ -435,7 +605,7 @@
             <div class="ingredients-text">Hạt tiêu đen Khe Sanh nguyên hạt, thu hoạch và phơi sấy tự nhiên, không chất bảo quản.</div>
           </div>
           <div class="front-footer">
-            <span>NET WT 100g</span>
+            <span>NET WT 250g</span>
             <span>KHESANHFARM.COM</span>
           </div>
         </div>
@@ -526,7 +696,7 @@
             <div class="ingredients-text">Hạt mắc ca sấy khô nguyên vị, không tẩm ướp, không chất bảo quản.</div>
           </div>
           <div class="front-footer">
-            <span>NET WT 100g</span>
+            <span>NET WT 250g</span>
             <span>KHESANHFARM.COM</span>
           </div>
         </div>
@@ -617,7 +787,7 @@
             <div class="ingredients-text">Tinh bột nghệ vàng nguyên chất, chiết xuất tự nhiên từ củ nghệ Khe Sanh, không phụ gia.</div>
           </div>
           <div class="front-footer">
-            <span>NET WT 200g</span>
+            <span>NET WT 250g</span>
             <span>KHESANHFARM.COM</span>
           </div>
         </div>
@@ -708,7 +878,7 @@
             <div class="ingredients-text">Tinh bột sắn (khoai mì) nguyên chất, không tẩy trắng, không phụ gia.</div>
           </div>
           <div class="front-footer">
-            <span>NET WT 200g</span>
+            <span>NET WT 250g</span>
             <span>KHESANHFARM.COM</span>
           </div>
         </div>
@@ -799,7 +969,7 @@
             <div class="ingredients-text">Tinh bột nghệ đen nguyên chất, chiết xuất tự nhiên, không phụ gia, không chất bảo quản.</div>
           </div>
           <div class="front-footer">
-            <span>NET WT 200g</span>
+            <span>NET WT 250g</span>
             <span>KHESANHFARM.COM</span>
           </div>
         </div>
@@ -858,8 +1028,30 @@
     </div>
   </details>
 
+  <div class="section-label" id="gio-qua">Thiết kế giỏ quà tặng</div>
+  <div class="legend">Chọn sản phẩm, số lượng và giá để tạo giỏ quà, sau đó xuất ra file ảnh.</div>
+
+  <div class="basket-wrap">
+    <div class="basket-form" id="basket-form"></div>
+    <div class="basket-preview-col">
+      <div id="basket-preview">
+        <div class="bp-head">
+          <div class="ksf-mark"><span>KSF</span></div>
+          <div class="bp-title">Giỏ quà tặng</div>
+          <div class="bp-sub">Khe Sanh Farm</div>
+        </div>
+        <div id="basket-items"><div class="bp-empty">Chưa chọn sản phẩm nào</div></div>
+        <div class="bp-footer">
+          <div class="bp-total-row"><span>Tổng giá</span><span id="bp-total-price">0đ</span></div>
+          <div class="bp-wt-row"><span>Tổng khối lượng</span><span id="bp-total-weight">0g</span></div>
+        </div>
+      </div>
+      <button class="export-btn" onclick="exportBasketImage()">Xuất ảnh giỏ quà</button>
+    </div>
+  </div>
+
+  <div class="section-label" id="gui-anh">Gửi ảnh và góp ý</div>
   <div class="feedback">
-    <h2>Gửi ảnh và góp ý</h2>
     <div class="hint">Ảnh sẽ tự động lưu vào Google Drive của dự án; nội dung góp ý sẽ mở một Issue mới trên GitHub repo, bạn chỉ cần bấm gửi ở tab mới hiện ra.</div>
     <div class="field-row">
       <div>
@@ -888,8 +1080,82 @@
     <div class="status" id="ph-status"></div>
   </div>
 
+  <div class="site-footer">
+    <div class="f-brand">Khe Sanh Farm</div>
+    Nông sản sạch vùng cao · Quảng Trị<br>
+    www.khesanhfarm.com · hi@khesanhfarm.com
+  </div>
+
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+// Danh sách sản phẩm cho giỏ quà tặng — khối lượng & giá là mặc định, có thể chỉnh trực tiếp trên trang
+var BASKET_PRODUCTS = [
+  { id: "cs",   name: "Chuối sấy giòn",     weight: 250, price: 45000 },
+  { id: "ht",   name: "Hạt tiêu",           weight: 250, price: 60000 },
+  { id: "mc",   name: "Mắc ca",             weight: 250, price: 120000 },
+  { id: "tbn",  name: "Tinh bột nghệ",      weight: 250, price: 90000 },
+  { id: "tbs",  name: "Tinh bột sắn",       weight: 250, price: 40000 },
+  { id: "tbnd", name: "Tinh bột nghệ đen",  weight: 250, price: 100000 }
+];
+
+function formatVnd(n){ return n.toLocaleString('vi-VN') + "đ"; }
+function formatWeight(g){ return g >= 1000 ? (g/1000).toLocaleString('vi-VN') + "kg" : g + "g"; }
+
+function buildBasketForm(){
+  var form = document.getElementById('basket-form');
+  var rows = BASKET_PRODUCTS.map(function(p){
+    return '' +
+      '<div class="basket-item">' +
+        '<input type="checkbox" id="bk-check-' + p.id + '" onchange="renderBasket()">' +
+        '<span class="b-name">' + p.name + '</span>' +
+        '<span class="b-wt" id="bk-wtlabel-' + p.id + '">' + p.weight + 'g / phần</span>' +
+        'SL <input type="number" id="bk-qty-' + p.id + '" value="1" min="1" onchange="renderBasket()">' +
+        '<span class="b-price">Giá <input type="number" id="bk-price-' + p.id + '" value="' + p.price + '" step="1000" onchange="renderBasket()">đ</span>' +
+      '</div>';
+  }).join('');
+  form.innerHTML = rows +
+    '<div class="basket-totals"><span>Tổng cộng</span><span id="bk-form-total">0đ</span></div>' +
+    '<div class="basket-note">Số lượng, khối lượng và giá đều chỉnh được trực tiếp — mặc định là giá tham khảo, thay theo giá bán thật của bạn.</div>';
+}
+
+function renderBasket(){
+  var itemsEl = document.getElementById('basket-items');
+  var totalPrice = 0, totalWeight = 0;
+  var lines = [];
+
+  BASKET_PRODUCTS.forEach(function(p){
+    var checked = document.getElementById('bk-check-' + p.id).checked;
+    if(!checked) return;
+    var qty = parseInt(document.getElementById('bk-qty-' + p.id).value, 10) || 0;
+    var price = parseInt(document.getElementById('bk-price-' + p.id).value, 10) || 0;
+    var lineTotal = qty * price;
+    var lineWeight = qty * p.weight;
+    totalPrice += lineTotal;
+    totalWeight += lineWeight;
+    lines.push('<div class="bp-line"><span>' + p.name + ' × ' + qty + '</span><span>' + formatVnd(lineTotal) + '</span></div>');
+  });
+
+  itemsEl.innerHTML = lines.length ? lines.join('') : '<div class="bp-empty">Chưa chọn sản phẩm nào</div>';
+  document.getElementById('bp-total-price').textContent = formatVnd(totalPrice);
+  document.getElementById('bp-total-weight').textContent = formatWeight(totalWeight);
+  document.getElementById('bk-form-total').textContent = formatVnd(totalPrice);
+}
+
+function exportBasketImage(){
+  var el = document.getElementById('basket-preview');
+  html2canvas(el, { backgroundColor: '#FBF8EF', scale: 2 }).then(function(canvas){
+    var link = document.createElement('a');
+    link.download = 'gio-qua-khesanhfarm.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+}
+
+buildBasketForm();
+renderBasket();
+</script>
 <script>
 // Dán URL Web App của Google Apps Script (sau khi deploy) vào đây
 var DRIVE_UPLOAD_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
