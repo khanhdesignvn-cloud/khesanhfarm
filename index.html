@@ -394,7 +394,7 @@
 
   .basket-preview-col{ flex:1; min-width:280px; display:flex; flex-direction:column; align-items:center; }
   #basket-preview{
-    width:300px;
+    width:460px;
     background:var(--paper);
     border:2px solid var(--ink);
     border-radius:12px;
@@ -408,7 +408,7 @@
   .bp-head .ksf-mark{ width:44px; height:44px; margin:0 auto 6px; }
   .bp-head .bp-title{ font-family:'SVN Vintage', Georgia, serif; font-size:20px; color:var(--cream); }
   .bp-head .bp-sub{ font-family:Arial, sans-serif; font-size:9px; color:var(--teal-light); letter-spacing:.05em; margin-top:2px; }
-  #basket-items{ padding:10px 20px; }
+  #basket-items{ padding:10px 12px; }
   .bp-line{
     display:flex; justify-content:space-between;
     font-family:Arial, sans-serif; font-size:10.5px;
@@ -416,6 +416,13 @@
   }
   .bp-line:last-child{ border-bottom:none; }
   .bp-empty{ font-family:Arial, sans-serif; font-size:10.5px; color:#8a7f6b; text-align:center; padding:16px 0; }
+  .bp-table{ width:100%; border-collapse:collapse; font-family:Arial, sans-serif; font-size:9.5px; }
+  .bp-table th{ background:var(--cream); color:var(--teal-deep); padding:5px 3px; text-align:center; font-weight:bold; font-size:8.5px; border-bottom:1px solid var(--teal-deep); white-space:nowrap; }
+  .bp-table td{ padding:4px 3px; text-align:center; border-bottom:1px dashed var(--line); vertical-align:middle; }
+  .bp-table td.name{ text-align:left; font-weight:bold; color:var(--ink); }
+  .bp-table td.num{ text-align:right; white-space:nowrap; }
+  .bp-table td.discount{ color:#b00020; }
+  .bp-table tr:last-child td{ border-bottom:none; }
   .bp-footer{
     padding:12px 20px 16px;
     border-top:1px solid var(--line);
@@ -423,6 +430,7 @@
   }
   .bp-total-row{ display:flex; justify-content:space-between; font-size:12px; color:var(--teal-deep); font-weight:bold; margin-bottom:2px; }
   .bp-wt-row{ display:flex; justify-content:space-between; font-size:9.5px; color:#6b6050; }
+  .bp-discount-row{ display:flex; justify-content:space-between; font-size:9.5px; color:#b00020; margin-top:2px; }
   .export-btn{
     margin-top:14px;
     font-family:Arial, sans-serif;
@@ -1029,7 +1037,7 @@
   </details>
 
   <div class="section-label" id="gio-qua">Thiết kế giỏ quà tặng</div>
-  <div class="legend">Chọn sản phẩm, số lượng và giá để tạo giỏ quà, sau đó xuất ra file ảnh.</div>
+  <div class="legend">Chọn sản phẩm, số lượng và giá để tạo giỏ quà (áp dụng chiết khấu 10%), sau đó xuất ra file ảnh.</div>
 
   <div class="basket-wrap">
     <div class="basket-form" id="basket-form"></div>
@@ -1042,7 +1050,8 @@
         </div>
         <div id="basket-items"><div class="bp-empty">Chưa chọn sản phẩm nào</div></div>
         <div class="bp-footer">
-          <div class="bp-total-row"><span>Tổng giá</span><span id="bp-total-price">0đ</span></div>
+          <div class="bp-total-row"><span>Tổng thành tiền</span><span id="bp-total-price">0đ</span></div>
+          <div class="bp-discount-row"><span>Chiết khấu 10%</span><span id="bp-total-discount">0đ</span></div>
           <div class="bp-wt-row"><span>Tổng khối lượng</span><span id="bp-total-weight">0g</span></div>
         </div>
       </div>
@@ -1110,35 +1119,59 @@ function buildBasketForm(){
       '<div class="basket-item">' +
         '<input type="checkbox" id="bk-check-' + p.id + '" onchange="renderBasket()">' +
         '<span class="b-name">' + p.name + '</span>' +
-        '<span class="b-wt" id="bk-wtlabel-' + p.id + '">' + p.weight + 'g / phần</span>' +
+        '<span class="b-wt" id="bk-wtlabel-' + p.id + '">KLT ' + p.weight + 'g</span>' +
         'SL <input type="number" id="bk-qty-' + p.id + '" value="1" min="1" onchange="renderBasket()">' +
         '<span class="b-price">Giá <input type="number" id="bk-price-' + p.id + '" value="' + p.price + '" step="1000" onchange="renderBasket()">đ</span>' +
       '</div>';
   }).join('');
   form.innerHTML = rows +
-    '<div class="basket-totals"><span>Tổng cộng</span><span id="bk-form-total">0đ</span></div>' +
-    '<div class="basket-note">Số lượng, khối lượng và giá đều chỉnh được trực tiếp — mặc định là giá tham khảo, thay theo giá bán thật của bạn.</div>';
+    '<div class="basket-totals"><span>Tổng thành tiền (đã CK 10%)</span><span id="bk-form-total">0đ</span></div>' +
+    '<div class="basket-note">Số lượng, khối lượng (KLT) và giá đều chỉnh được trực tiếp — mặc định là giá tham khảo, thay theo giá bán thật của bạn.</div>';
 }
 
 function renderBasket(){
   var itemsEl = document.getElementById('basket-items');
-  var totalPrice = 0, totalWeight = 0;
-  var lines = [];
+  var totalPrice = 0, totalWeight = 0, totalDiscount = 0;
+  var rows = [];
+  var stt = 0;
 
   BASKET_PRODUCTS.forEach(function(p){
     var checked = document.getElementById('bk-check-' + p.id).checked;
     if(!checked) return;
     var qty = parseInt(document.getElementById('bk-qty-' + p.id).value, 10) || 0;
     var price = parseInt(document.getElementById('bk-price-' + p.id).value, 10) || 0;
-    var lineTotal = qty * price;
+    var lineGross = qty * price;
+    var lineDiscount = Math.round(lineGross * 0.10);
+    var lineNet = lineGross - lineDiscount;
     var lineWeight = qty * p.weight;
-    totalPrice += lineTotal;
+    totalPrice += lineNet;
+    totalDiscount += lineDiscount;
     totalWeight += lineWeight;
-    lines.push('<div class="bp-line"><span>' + p.name + ' × ' + qty + '</span><span>' + formatVnd(lineTotal) + '</span></div>');
+    stt++;
+    rows.push(
+      '<tr>' +
+        '<td class="num">' + stt + '</td>' +
+        '<td class="name">' + p.name + '</td>' +
+        '<td class="num">' + formatWeight(p.weight) + '</td>' +
+        '<td class="num">' + qty + '</td>' +
+        '<td class="num">' + price.toLocaleString('vi-VN') + 'đ</td>' +
+        '<td class="num discount">-' + lineDiscount.toLocaleString('vi-VN') + 'đ</td>' +
+        '<td class="num">' + formatVnd(lineNet) + '</td>' +
+      '</tr>'
+    );
   });
 
-  itemsEl.innerHTML = lines.length ? lines.join('') : '<div class="bp-empty">Chưa chọn sản phẩm nào</div>';
+  var header =
+    '<table class="bp-table">' +
+      '<thead><tr>' +
+        '<th>STT</th><th>Sản phẩm</th><th>KLT</th><th>SL</th><th>Đơn giá</th><th>CK 10%</th><th>Thành tiền</th>' +
+      '</tr></thead><tbody>' +
+      (rows.length ? rows.join('') : '<tr><td colspan="7" class="bp-empty">Chưa chọn sản phẩm nào</td></tr>') +
+      '</tbody></table>';
+
+  itemsEl.innerHTML = header;
   document.getElementById('bp-total-price').textContent = formatVnd(totalPrice);
+  document.getElementById('bp-total-discount').textContent = '-' + formatVnd(totalDiscount);
   document.getElementById('bp-total-weight').textContent = formatWeight(totalWeight);
   document.getElementById('bk-form-total').textContent = formatVnd(totalPrice);
 }
