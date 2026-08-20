@@ -358,6 +358,17 @@
     margin:26px 4px 4px;
   }
 
+  .cart-hero{
+    background:linear-gradient(135deg, var(--teal-deep), var(--teal));
+    color:var(--cream);
+    border-radius:14px;
+    padding:24px 28px;
+    margin:26px 0 18px;
+    box-shadow:0 10px 24px -12px rgba(14,111,99,0.5);
+  }
+  .cart-hero-title{ font-family:'SVN Vintage', Georgia, serif; font-size:26px; }
+  .cart-hero-sub{ font-size:12.5px; color:var(--teal-light); margin-top:7px; line-height:1.5; }
+
   /* ===== Gift basket builder ===== */
   .basket-wrap{
     display:flex;
@@ -416,43 +427,44 @@
   .basket-preview-col{ display:flex; flex-direction:column; align-items:flex-start; }
   #basket-preview{
     width:100%;
-    max-width:680px;
+    max-width:780px;
     background:var(--paper);
     border:2px solid var(--ink);
-    border-radius:12px;
+    border-radius:14px;
     overflow:hidden;
+    box-shadow:0 18px 40px -20px rgba(42,33,24,0.35);
   }
   .bp-head{
     background:var(--teal-deep);
-    padding:16px 20px 12px;
+    padding:20px 24px 16px;
     text-align:center;
   }
-  .bp-head .ksf-mark{ width:44px; height:44px; margin:0 auto 6px; }
-  .bp-head .bp-title{ font-family:'SVN Vintage', Georgia, serif; font-size:20px; color:var(--cream); }
-  .bp-head .bp-sub{ font-family:Arial, sans-serif; font-size:9px; color:var(--teal-light); letter-spacing:.05em; margin-top:2px; }
-  #basket-items{ padding:10px 12px; }
+  .bp-head .ksf-mark{ width:54px; height:54px; margin:0 auto 8px; }
+  .bp-head .bp-title{ font-family:'SVN Vintage', Georgia, serif; font-size:27px; color:var(--cream); }
+  .bp-head .bp-sub{ font-family:Arial, sans-serif; font-size:11px; color:var(--teal-light); letter-spacing:.05em; margin-top:3px; }
+  #basket-items{ padding:12px 16px; }
   .bp-line{
     display:flex; justify-content:space-between;
     font-family:Arial, sans-serif; font-size:10.5px;
     padding:5px 0; border-bottom:1px dashed var(--line);
   }
   .bp-line:last-child{ border-bottom:none; }
-  .bp-empty{ font-family:Arial, sans-serif; font-size:10.5px; color:#8a7f6b; text-align:center; padding:16px 0; }
-  .bp-table{ width:100%; border-collapse:collapse; font-family:Arial, sans-serif; font-size:9.5px; }
-  .bp-table th{ background:var(--cream); color:var(--teal-deep); padding:5px 3px; text-align:center; font-weight:bold; font-size:8.5px; border-bottom:1px solid var(--teal-deep); white-space:nowrap; }
-  .bp-table td{ padding:4px 3px; text-align:center; border-bottom:1px dashed var(--line); vertical-align:middle; }
+  .bp-empty{ font-family:Arial, sans-serif; font-size:13px; color:#8a7f6b; text-align:center; padding:20px 0; }
+  .bp-table{ width:100%; border-collapse:collapse; font-family:Arial, sans-serif; font-size:13px; }
+  .bp-table th{ background:var(--cream); color:var(--teal-deep); padding:9px 6px; text-align:center; font-weight:bold; font-size:11.5px; border-bottom:2px solid var(--teal-deep); white-space:nowrap; }
+  .bp-table td{ padding:8px 6px; text-align:center; border-bottom:1px dashed var(--line); vertical-align:middle; }
   .bp-table td.name{ text-align:left; font-weight:bold; color:var(--ink); }
   .bp-table td.num{ text-align:right; white-space:nowrap; }
   .bp-table td.discount{ color:#b00020; }
   .bp-table tr:last-child td{ border-bottom:none; }
   .bp-footer{
-    padding:12px 20px 16px;
+    padding:14px 24px 18px;
     border-top:1px solid var(--line);
     font-family:Arial, sans-serif;
   }
-  .bp-total-row{ display:flex; justify-content:space-between; font-size:12px; color:var(--teal-deep); font-weight:bold; margin-bottom:2px; }
-  .bp-wt-row{ display:flex; justify-content:space-between; font-size:9.5px; color:#6b6050; }
-  .bp-discount-row{ display:flex; justify-content:space-between; font-size:9.5px; color:#b00020; margin-top:2px; }
+  .bp-total-row{ display:flex; justify-content:space-between; font-size:16px; color:var(--teal-deep); font-weight:bold; margin-bottom:3px; }
+  .bp-wt-row{ display:flex; justify-content:space-between; font-size:12px; color:#6b6050; }
+  .bp-discount-row{ display:flex; justify-content:space-between; font-size:12px; color:#b00020; margin-top:3px; }
 
   .pay-block{
     margin-top:18px;
@@ -1121,18 +1133,11 @@
     </div>
   </details>
 
-  <details class="product" id="gio-qua" open>
-    <summary class="product-head">
-      <div class="product-num">✦</div>
-      <div class="product-head-text">
-        <h2>Thiết kế giỏ quà tặng</h2>
-        <div class="en">Gift Basket Builder — xuất ảnh</div>
-      </div>
-      <div class="chevron"><svg viewBox="0 0 20 20" fill="none"><path d="M7 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-    </summary>
-    <div class="product-body">
-      <div class="legend">Tích chọn "Thêm vào giỏ quà" ở từng sản phẩm phía trên, chỉnh SL và giá — bảng dưới tự động cập nhật (chiết khấu 10%).</div>
-      <div class="basket-preview-col">
+  <div class="cart-hero" id="gio-qua">
+    <div class="cart-hero-title">🛒 Giỏ quà tặng &amp; Thanh toán</div>
+    <div class="cart-hero-sub">Tích chọn "Thêm vào giỏ quà" ở từng sản phẩm phía trên — giỏ quà, số tiền và mã QR chuyển khoản tự cập nhật.</div>
+  </div>
+  <div class="basket-preview-col">
         <div id="basket-preview">
           <div class="bp-head">
             <div class="ksf-mark"><span>KSF</span></div>
@@ -1167,9 +1172,7 @@
             <div class="pay-note">Nội dung chuyển khoản: ghi rõ họ tên người gửi để Ban Liên Lạc đối soát đơn hàng.</div>
           </div>
         </div>
-      </div>
-    </div>
-  </details>
+  </div>
 
   <div class="section-label" id="gui-anh">Gửi ảnh và góp ý</div>
   <div class="feedback">
