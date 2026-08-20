@@ -369,6 +369,19 @@
   .cart-hero-title{ font-family:'SVN Vintage', Georgia, serif; font-size:26px; }
   .cart-hero-sub{ font-size:12.5px; color:var(--teal-light); margin-top:7px; line-height:1.5; }
 
+  .layout{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 560px;
+    gap:26px;
+    align-items:start;
+  }
+  .layout-main{ min-width:0; }
+  .layout-side{ position:sticky; top:18px; }
+  @media (max-width:1000px){
+    .layout{ grid-template-columns:1fr; }
+    .layout-side{ position:static; }
+  }
+
   /* ===== Gift basket builder ===== */
   .basket-wrap{
     display:flex;
@@ -519,7 +532,7 @@
     display:flex; align-items:center; gap:14px;
     margin-top:14px;
   }
-  .pay-qr-row img{ width:120px; height:120px; border:1px solid var(--line); border-radius:8px; background:#fff; flex-shrink:0; }
+  .pay-qr-row img{ width:200px; height:200px; border:1px solid var(--line); border-radius:8px; background:#fff; flex-shrink:0; }
   .pay-qr-text{ font-size:11px; color:#6b6050; line-height:1.5; flex:1; }
   .pay-note{ font-size:10px; color:#8a7f6b; margin-top:10px; line-height:1.5; }
   .export-btn{
@@ -577,6 +590,9 @@
     <h1>Khe Sanh <span>Farm</span></h1>
     <p>Nông sản sạch vùng cao Quảng Trị — chuối sấy giòn, hạt tiêu, mắc ca và các dòng tinh bột nguyên chất.</p>
   </div>
+
+  <div class="layout">
+  <div class="layout-main">
 
   <div class="section-label" id="san-pham">Sản phẩm</div>
   <div class="legend">Nhấp vào tên sản phẩm để xem nhãn mặt trước &amp; mặt sau.</div>
@@ -1133,6 +1149,38 @@
     </div>
   </details>
 
+  <div class="section-label" id="gui-anh">Gửi ảnh và góp ý</div>
+  <div class="feedback">
+    <div class="hint">Ảnh sẽ tự động lưu vào Google Drive của dự án; nội dung góp ý sẽ mở một Issue mới trên GitHub repo, bạn chỉ cần bấm gửi ở tab mới hiện ra.</div>
+    <div class="field-row">
+      <div>
+        <label for="ph-sender">Người gửi</label>
+        <select id="ph-sender">
+          <option value="Mr. Khánh">Mr. Khánh</option>
+          <option value="Mr. Lân">Mr. Lân</option>
+          <option value="Mr. Thiên">Mr. Thiên</option>
+        </select>
+      </div>
+      <div>
+        <label for="ph-category">Gửi cho</label>
+        <select id="ph-category">
+          <option value="Sự kiện">Sự kiện</option>
+          <option value="Tham khảo">Tham khảo</option>
+          <option value="Hoạt động">Hoạt động</option>
+          <option value="Khác">Khác</option>
+        </select>
+      </div>
+    </div>
+    <label for="ph-files">Chọn ảnh (có thể chọn nhiều tấm, không bắt buộc)</label>
+    <input type="file" id="ph-files" accept="image/*" multiple>
+    <label for="ph-content">Nội dung</label>
+    <textarea id="ph-content" placeholder="Nhập góp ý, ghi chú về ảnh, hoặc nội dung liên quan..."></textarea>
+    <button onclick="submitAll()">Gửi</button>
+    <div class="status" id="ph-status"></div>
+  </div>
+
+  </div>
+  <div class="layout-side">
   <div class="cart-hero" id="gio-qua">
     <div class="cart-hero-title">🛒 Giỏ quà tặng &amp; Thanh toán</div>
     <div class="cart-hero-sub">Tích chọn "Thêm vào giỏ quà" ở từng sản phẩm phía trên — giỏ quà, số tiền và mã QR chuyển khoản tự cập nhật.</div>
@@ -1173,35 +1221,7 @@
           </div>
         </div>
   </div>
-
-  <div class="section-label" id="gui-anh">Gửi ảnh và góp ý</div>
-  <div class="feedback">
-    <div class="hint">Ảnh sẽ tự động lưu vào Google Drive của dự án; nội dung góp ý sẽ mở một Issue mới trên GitHub repo, bạn chỉ cần bấm gửi ở tab mới hiện ra.</div>
-    <div class="field-row">
-      <div>
-        <label for="ph-sender">Người gửi</label>
-        <select id="ph-sender">
-          <option value="Mr. Khánh">Mr. Khánh</option>
-          <option value="Mr. Lân">Mr. Lân</option>
-          <option value="Mr. Thiên">Mr. Thiên</option>
-        </select>
-      </div>
-      <div>
-        <label for="ph-category">Gửi cho</label>
-        <select id="ph-category">
-          <option value="Sự kiện">Sự kiện</option>
-          <option value="Tham khảo">Tham khảo</option>
-          <option value="Hoạt động">Hoạt động</option>
-          <option value="Khác">Khác</option>
-        </select>
-      </div>
-    </div>
-    <label for="ph-files">Chọn ảnh (có thể chọn nhiều tấm, không bắt buộc)</label>
-    <input type="file" id="ph-files" accept="image/*" multiple>
-    <label for="ph-content">Nội dung</label>
-    <textarea id="ph-content" placeholder="Nhập góp ý, ghi chú về ảnh, hoặc nội dung liên quan..."></textarea>
-    <button onclick="submitAll()">Gửi</button>
-    <div class="status" id="ph-status"></div>
+  </div>
   </div>
 
   <div class="site-footer">
