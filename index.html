@@ -453,6 +453,57 @@
   .bp-total-row{ display:flex; justify-content:space-between; font-size:12px; color:var(--teal-deep); font-weight:bold; margin-bottom:2px; }
   .bp-wt-row{ display:flex; justify-content:space-between; font-size:9.5px; color:#6b6050; }
   .bp-discount-row{ display:flex; justify-content:space-between; font-size:9.5px; color:#b00020; margin-top:2px; }
+
+  .pay-block{
+    margin-top:18px;
+    width:100%;
+    max-width:680px;
+    background:var(--paper);
+    border:1.5px solid var(--teal);
+    border-radius:12px;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+  }
+  .pay-head{
+    background:var(--teal-deep);
+    color:var(--cream);
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px 16px;
+  }
+  .pay-bank{
+    width:38px; height:38px; border-radius:8px;
+    background:var(--cream); color:var(--teal-deep);
+    font-weight:bold; font-size:16px;
+    display:flex; align-items:center; justify-content:center;
+    letter-spacing:-0.02em; flex-shrink:0;
+  }
+  .pay-title{ font-weight:bold; font-size:14px; }
+  .pay-sub{ font-size:10.5px; opacity:.85; margin-top:2px; }
+  .pay-body{ padding:12px 16px 14px; }
+  .pay-row{
+    display:flex; justify-content:space-between; align-items:center;
+    gap:10px; padding:7px 0; font-size:12.5px; color:#6b6050;
+    border-bottom:1px dashed var(--line);
+  }
+  .pay-row b{ color:var(--ink); font-size:13.5px; }
+  .pay-num{ font-family:'Courier New', monospace; letter-spacing:.05em; }
+  .copy-btn{
+    border:1px solid var(--teal); color:var(--teal-deep);
+    background:#fff; border-radius:6px; padding:4px 10px;
+    font-size:11px; cursor:pointer; white-space:nowrap;
+  }
+  .copy-btn:hover{ background:var(--cream); }
+  .pay-amount-row{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:12px; padding:12px 14px;
+    background:rgba(14,111,99,0.08); border-radius:8px;
+    border:1px dashed var(--teal);
+  }
+  .pay-amount-row span{ font-size:13px; color:var(--teal-deep); font-weight:bold; }
+  .pay-amount-row b{ font-size:20px; color:var(--clay); }
+  .pay-note{ font-size:10px; color:#8a7f6b; margin-top:10px; line-height:1.5; }
   .export-btn{
     margin-top:14px;
     font-family:Arial, sans-serif;
@@ -1090,6 +1141,22 @@
           </div>
         </div>
         <button class="export-btn" onclick="exportBasketImage()">Xuất ảnh giỏ quà</button>
+        <div class="pay-block">
+          <div class="pay-head">
+            <span class="pay-bank">MB</span>
+            <div>
+              <div class="pay-title">Thanh toán chuyển khoản</div>
+              <div class="pay-sub">Ngân hàng TMCP Quân Đội (MB Bank)</div>
+            </div>
+          </div>
+          <div class="pay-body">
+            <div class="pay-row"><span>Chủ tài khoản</span><b>Trần Thái Thiên</b></div>
+            <div class="pay-row"><span>Số tài khoản</span><span style="display:flex;align-items:center;gap:8px;"><b class="pay-num" id="pay-acc">0888085588</b><button class="copy-btn" onclick="copyPay(this, '0888085588')">Sao chép</button></span></div>
+            <div class="pay-row"><span>SĐT</span><b>0888085588</b></div>
+            <div class="pay-amount-row"><span>Số tiền cần chuyển</span><b id="pay-amount">0đ</b></div>
+            <div class="pay-note">Nội dung chuyển khoản: ghi rõ họ tên người gửi để Ban Liên Lạc đối soát đơn hàng.</div>
+          </div>
+        </div>
       </div>
     </div>
   </details>
@@ -1191,6 +1258,17 @@ function renderBasket(){
   document.getElementById('bp-total-price').textContent = formatVnd(totalPrice);
   document.getElementById('bp-total-discount').textContent = '-' + formatVnd(totalDiscount);
   document.getElementById('bp-total-weight').textContent = formatWeight(totalWeight);
+  document.getElementById('pay-amount').textContent = formatVnd(totalPrice);
+}
+
+function copyPay(btn, num){
+  function fallback(){ prompt('Sao chép số tài khoản:', num); }
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(num).then(function(){
+      btn.textContent = '✓ Đã chép';
+      setTimeout(function(){ btn.textContent = 'Sao chép'; }, 1500);
+    }).catch(fallback);
+  } else { fallback(); }
 }
 
 function exportBasketImage(){
