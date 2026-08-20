@@ -125,8 +125,9 @@
   }
   .code-row{
     display:flex;
+    flex-wrap:wrap;
     align-items:center;
-    gap:6px;
+    gap:8px 14px;
     font-size:10px;
     color:#6b6050;
     padding:12px 0 16px;
@@ -142,6 +143,9 @@
     font-family: Arial, sans-serif;
     color:var(--ink);
   }
+  .code-row label{ display:flex; align-items:center; gap:5px; color:#6b6050; white-space:nowrap; }
+  .code-row input[type="checkbox"]{ width:auto; border:none; cursor:pointer; }
+  .code-row .bk-param input{ width:52px; text-align:center; }
 
   /* ===== Mini label cards (front/back) reused inside each product body ===== */
   .labels-row{
@@ -392,9 +396,10 @@
     margin-top:10px;
   }
 
-  .basket-preview-col{ flex:1; min-width:280px; display:flex; flex-direction:column; align-items:center; }
+  .basket-preview-col{ display:flex; flex-direction:column; align-items:flex-start; }
   #basket-preview{
-    width:460px;
+    width:100%;
+    max-width:680px;
     background:var(--paper);
     border:2px solid var(--ink);
     border-radius:12px;
@@ -577,7 +582,7 @@
         </div>
 
       </div>
-      <div class="code-row">Mã SP: <input type="text" value="KSF-CS-001"></div>
+      <div class="code-row">Mã SP: <input type="text" value="KSF-CS-001"> <label><input type="checkbox" id="bk-check-cs" onchange="renderBasket()"> Thêm vào giỏ quà</label> <label class="bk-param">SL <input type="number" id="bk-qty-cs" value="1" min="1" onchange="renderBasket()"></label> <label class="bk-param">Giá <input type="number" id="bk-price-cs" value="45000" step="1000" onchange="renderBasket()">đ</label></div>
     </div>
   </details>
 
@@ -668,7 +673,7 @@
         </div>
 
       </div>
-      <div class="code-row">Mã SP: <input type="text" value="KSF-HT-002"></div>
+      <div class="code-row">Mã SP: <input type="text" value="KSF-HT-002"> <label><input type="checkbox" id="bk-check-ht" onchange="renderBasket()"> Thêm vào giỏ quà</label> <label class="bk-param">SL <input type="number" id="bk-qty-ht" value="1" min="1" onchange="renderBasket()"></label> <label class="bk-param">Giá <input type="number" id="bk-price-ht" value="60000" step="1000" onchange="renderBasket()">đ</label></div>
     </div>
   </details>
 
@@ -759,7 +764,7 @@
         </div>
 
       </div>
-      <div class="code-row">Mã SP: <input type="text" value="KSF-MC-003"></div>
+      <div class="code-row">Mã SP: <input type="text" value="KSF-MC-003"> <label><input type="checkbox" id="bk-check-mc" onchange="renderBasket()"> Thêm vào giỏ quà</label> <label class="bk-param">SL <input type="number" id="bk-qty-mc" value="1" min="1" onchange="renderBasket()"></label> <label class="bk-param">Giá <input type="number" id="bk-price-mc" value="120000" step="1000" onchange="renderBasket()">đ</label></div>
     </div>
   </details>
 
@@ -850,7 +855,7 @@
         </div>
 
       </div>
-      <div class="code-row">Mã SP: <input type="text" value="KSF-TBN-004"></div>
+      <div class="code-row">Mã SP: <input type="text" value="KSF-TBN-004"> <label><input type="checkbox" id="bk-check-tbn" onchange="renderBasket()"> Thêm vào giỏ quà</label> <label class="bk-param">SL <input type="number" id="bk-qty-tbn" value="1" min="1" onchange="renderBasket()"></label> <label class="bk-param">Giá <input type="number" id="bk-price-tbn" value="90000" step="1000" onchange="renderBasket()">đ</label></div>
     </div>
   </details>
 
@@ -941,7 +946,7 @@
         </div>
 
       </div>
-      <div class="code-row">Mã SP: <input type="text" value="KSF-TBS-005"></div>
+      <div class="code-row">Mã SP: <input type="text" value="KSF-TBS-005"> <label><input type="checkbox" id="bk-check-tbs" onchange="renderBasket()"> Thêm vào giỏ quà</label> <label class="bk-param">SL <input type="number" id="bk-qty-tbs" value="1" min="1" onchange="renderBasket()"></label> <label class="bk-param">Giá <input type="number" id="bk-price-tbs" value="40000" step="1000" onchange="renderBasket()">đ</label></div>
     </div>
   </details>
 
@@ -1032,32 +1037,39 @@
         </div>
 
       </div>
-      <div class="code-row">Mã SP: <input type="text" value="KSF-TBND-006"></div>
+      <div class="code-row">Mã SP: <input type="text" value="KSF-TBND-006"> <label><input type="checkbox" id="bk-check-tbnd" onchange="renderBasket()"> Thêm vào giỏ quà</label> <label class="bk-param">SL <input type="number" id="bk-qty-tbnd" value="1" min="1" onchange="renderBasket()"></label> <label class="bk-param">Giá <input type="number" id="bk-price-tbnd" value="100000" step="1000" onchange="renderBasket()">đ</label></div>
     </div>
   </details>
 
-  <div class="section-label" id="gio-qua">Thiết kế giỏ quà tặng</div>
-  <div class="legend">Chọn sản phẩm, số lượng và giá để tạo giỏ quà (áp dụng chiết khấu 10%), sau đó xuất ra file ảnh.</div>
-
-  <div class="basket-wrap">
-    <div class="basket-form" id="basket-form"></div>
-    <div class="basket-preview-col">
-      <div id="basket-preview">
-        <div class="bp-head">
-          <div class="ksf-mark"><span>KSF</span></div>
-          <div class="bp-title">Giỏ quà tặng</div>
-          <div class="bp-sub">Khe Sanh Farm</div>
-        </div>
-        <div id="basket-items"><div class="bp-empty">Chưa chọn sản phẩm nào</div></div>
-        <div class="bp-footer">
-          <div class="bp-total-row"><span>Tổng thành tiền</span><span id="bp-total-price">0đ</span></div>
-          <div class="bp-discount-row"><span>Chiết khấu 10%</span><span id="bp-total-discount">0đ</span></div>
-          <div class="bp-wt-row"><span>Tổng khối lượng</span><span id="bp-total-weight">0g</span></div>
-        </div>
+  <details class="product" id="gio-qua" open>
+    <summary class="product-head">
+      <div class="product-num">✦</div>
+      <div class="product-head-text">
+        <h2>Thiết kế giỏ quà tặng</h2>
+        <div class="en">Gift Basket Builder — xuất ảnh</div>
       </div>
-      <button class="export-btn" onclick="exportBasketImage()">Xuất ảnh giỏ quà</button>
+      <div class="chevron"><svg viewBox="0 0 20 20" fill="none"><path d="M7 4l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    </summary>
+    <div class="product-body">
+      <div class="legend">Tích chọn "Thêm vào giỏ quà" ở từng sản phẩm phía trên, chỉnh SL và giá — bảng dưới tự động cập nhật (chiết khấu 10%).</div>
+      <div class="basket-preview-col">
+        <div id="basket-preview">
+          <div class="bp-head">
+            <div class="ksf-mark"><span>KSF</span></div>
+            <div class="bp-title">Giỏ quà tặng</div>
+            <div class="bp-sub">Khe Sanh Farm</div>
+          </div>
+          <div id="basket-items"><div class="bp-empty">Chưa chọn sản phẩm nào</div></div>
+          <div class="bp-footer">
+            <div class="bp-total-row"><span>Tổng thành tiền</span><span id="bp-total-price">0đ</span></div>
+            <div class="bp-discount-row"><span>Chiết khấu 10%</span><span id="bp-total-discount">0đ</span></div>
+            <div class="bp-wt-row"><span>Tổng khối lượng</span><span id="bp-total-weight">0g</span></div>
+          </div>
+        </div>
+        <button class="export-btn" onclick="exportBasketImage()">Xuất ảnh giỏ quà</button>
+      </div>
     </div>
-  </div>
+  </details>
 
   <div class="section-label" id="gui-anh">Gửi ảnh và góp ý</div>
   <div class="feedback">
@@ -1112,23 +1124,6 @@ var BASKET_PRODUCTS = [
 function formatVnd(n){ return n.toLocaleString('vi-VN') + "đ"; }
 function formatWeight(g){ return g >= 1000 ? (g/1000).toLocaleString('vi-VN') + "kg" : g + "g"; }
 
-function buildBasketForm(){
-  var form = document.getElementById('basket-form');
-  var rows = BASKET_PRODUCTS.map(function(p){
-    return '' +
-      '<div class="basket-item">' +
-        '<input type="checkbox" id="bk-check-' + p.id + '" onchange="renderBasket()">' +
-        '<span class="b-name">' + p.name + '</span>' +
-        '<span class="b-wt" id="bk-wtlabel-' + p.id + '">KLT ' + p.weight + 'g</span>' +
-        'SL <input type="number" id="bk-qty-' + p.id + '" value="1" min="1" onchange="renderBasket()">' +
-        '<span class="b-price">Giá <input type="number" id="bk-price-' + p.id + '" value="' + p.price + '" step="1000" onchange="renderBasket()">đ</span>' +
-      '</div>';
-  }).join('');
-  form.innerHTML = rows +
-    '<div class="basket-totals"><span>Tổng thành tiền (đã CK 10%)</span><span id="bk-form-total">0đ</span></div>' +
-    '<div class="basket-note">Số lượng, khối lượng (KLT) và giá đều chỉnh được trực tiếp — mặc định là giá tham khảo, thay theo giá bán thật của bạn.</div>';
-}
-
 function renderBasket(){
   var itemsEl = document.getElementById('basket-items');
   var totalPrice = 0, totalWeight = 0, totalDiscount = 0;
@@ -1173,7 +1168,6 @@ function renderBasket(){
   document.getElementById('bp-total-price').textContent = formatVnd(totalPrice);
   document.getElementById('bp-total-discount').textContent = '-' + formatVnd(totalDiscount);
   document.getElementById('bp-total-weight').textContent = formatWeight(totalWeight);
-  document.getElementById('bk-form-total').textContent = formatVnd(totalPrice);
 }
 
 function exportBasketImage(){
@@ -1186,7 +1180,6 @@ function exportBasketImage(){
   });
 }
 
-buildBasketForm();
 renderBasket();
 </script>
 <script>
