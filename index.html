@@ -503,6 +503,12 @@
   }
   .pay-amount-row span{ font-size:13px; color:var(--teal-deep); font-weight:bold; }
   .pay-amount-row b{ font-size:20px; color:var(--clay); }
+  .pay-qr-row{
+    display:flex; align-items:center; gap:14px;
+    margin-top:14px;
+  }
+  .pay-qr-row img{ width:120px; height:120px; border:1px solid var(--line); border-radius:8px; background:#fff; flex-shrink:0; }
+  .pay-qr-text{ font-size:11px; color:#6b6050; line-height:1.5; flex:1; }
   .pay-note{ font-size:10px; color:#8a7f6b; margin-top:10px; line-height:1.5; }
   .export-btn{
     margin-top:14px;
@@ -1154,6 +1160,10 @@
             <div class="pay-row"><span>Số tài khoản</span><span style="display:flex;align-items:center;gap:8px;"><b class="pay-num" id="pay-acc">0888085588</b><button class="copy-btn" onclick="copyPay(this, '0888085588')">Sao chép</button></span></div>
             <div class="pay-row"><span>SĐT</span><b>0888085588</b></div>
             <div class="pay-amount-row"><span>Số tiền cần chuyển</span><b id="pay-amount">0đ</b></div>
+            <div class="pay-qr-row">
+              <img id="pay-qr" alt="QR chuyển khoản">
+              <div class="pay-qr-text">Quét mã QR bằng app ngân hàng để chuyển khoản nhanh — mã tự cập nhật theo đúng số tiền trong giỏ quà.</div>
+            </div>
             <div class="pay-note">Nội dung chuyển khoản: ghi rõ họ tên người gửi để Ban Liên Lạc đối soát đơn hàng.</div>
           </div>
         </div>
@@ -1259,6 +1269,20 @@ function renderBasket(){
   document.getElementById('bp-total-discount').textContent = '-' + formatVnd(totalDiscount);
   document.getElementById('bp-total-weight').textContent = formatWeight(totalWeight);
   document.getElementById('pay-amount').textContent = formatVnd(totalPrice);
+  updatePayQr(totalPrice);
+}
+
+function updatePayQr(amount){
+  var img = document.getElementById('pay-qr');
+  if(!img) return;
+  if(amount <= 0){ img.style.display = 'none'; return; }
+  var acc = '0888085588';
+  var name = 'Trần Thái Thiên';
+  var info = 'Thanh toan gio qua Khe Sanh Farm';
+  img.style.display = 'block';
+  img.src = 'https://img.vietqr.io/image/MB-' + acc + '-compact.png?amount=' + amount +
+    '&addInfo=' + encodeURIComponent(info) + '&accountName=' + encodeURIComponent(name);
+  img.alt = 'QR chuyển khoản ' + formatVnd(amount);
 }
 
 function copyPay(btn, num){
