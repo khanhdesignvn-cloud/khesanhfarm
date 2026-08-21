@@ -155,6 +155,15 @@
   .pay-qr-row img{ width:190px; height:190px; border:1px solid var(--line); border-radius:8px; background:#fff; flex-shrink:0; }
   .pay-qr-text{ font-size:11px; color:#6b6050; line-height:1.5; flex:1; min-width:180px; }
   .pay-note{ font-size:10px; color:#8a7f6b; margin-top:10px; line-height:1.5; }
+  .dl-row{ display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+  .dl-btn{
+    flex:1; min-width:150px;
+    font-family:Arial, sans-serif; font-size:13px; font-weight:bold;
+    color:var(--cream); background:var(--clay);
+    border:none; border-radius:8px; padding:12px 18px; cursor:pointer;
+  }
+  .dl-btn.dl-pdf{ background:var(--teal-deep); }
+  .dl-btn:hover{ opacity:.9; }
 
   .feedback{ background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-top:14px; }
   .feedback .hint{ font-family:Arial, sans-serif; font-size:10.5px; color:#6b6050; margin-bottom:14px; }
@@ -238,7 +247,7 @@
   </div>
 
   <div id="tab-pay" class="tab-panel active">
-    <div class="order-card">
+    <div class="order-card" id="phieu-card">
       <div class="order-head">
         <div class="oh-title">Quà tặng Khe Sanh Farm</div>
         <div class="oh-sub">Mỗi suất quà gồm các món dưới đây. Quý khách nhập số suất muốn đặt — tổng tiền và mã chuyển khoản tự cập nhật.</div>
@@ -279,12 +288,17 @@
           <div class="pay-row"><span>SĐT</span><b>0888085588</b></div>
           <div class="pay-amount-row"><span>Số tiền cần chuyển</span><b id="pay-amount">0đ</b></div>
           <div class="pay-qr-row">
-            <img id="pay-qr" alt="QR chuyển khoản">
+            <img id="pay-qr" alt="QR chuyển khoản" crossorigin="anonymous">
             <div class="pay-qr-text">Quét mã QR bằng app ngân hàng để chuyển khoản nhanh — mã tự cập nhật theo đúng tổng tiền.</div>
           </div>
           <div class="pay-note">Nội dung chuyển khoản: ghi rõ họ tên người gửi để Ban Liên Lạc đối soát đơn hàng.</div>
         </div>
       </div>
+    </div>
+
+    <div class="dl-row">
+      <button class="dl-btn" onclick="downloadPhieu('png', this)">⬇ Tải ảnh (PNG)</button>
+      <button class="dl-btn dl-pdf" onclick="downloadPhieu('pdf', this)">⬇ Tải PDF</button>
     </div>
   </div>
 
@@ -343,6 +357,8 @@
 
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
 
 var PRODUCTS = [
@@ -434,6 +450,36 @@ function copyPay(btn, num){
       setTimeout(function(){ btn.textContent = 'Sao chép'; }, 1500);
     }).catch(fallback);
   } else { fallback(); }
+}
+
+function downloadPhieu(type, btn){
+  var el = document.getElementById('phieu-card');
+  if(!el) return;
+  if(btn){ btn.textContent = 'Đang tạo...'; btn.disabled = true; }
+  html2canvas(el, { useCORS: true, scale: 2, backgroundColor: '#FBF8EF' }).then(function(canvas){
+    var ok = function(){ if(btn){ btn.disabled = false; btn.textContent = type==='png' ? '⬇ Tải ảnh (PNG)' : '⬇ Tải PDF'; } };
+    try{
+      if(type === 'png'){
+        var a = document.createElement('a');
+        a.download = 'phieu-dat-hang-khe-sanh-farm.png';
+        a.href = canvas.toDataURL('image/png');
+        a.click();
+      } else {
+        var img = canvas.toDataURL('image/png');
+        var pdf = new jspdf.jsPDF('p', 'mm', 'a4');
+        var pw = 210, ph = 297, m = 10;
+        var ratio = canvas.height / canvas.width;
+        var iw = pw - 2*m, ih = iw * ratio;
+        if(ih > ph - 2*m){ ih = ph - 2*m; iw = ih / ratio; }
+        pdf.addImage(img, 'PNG', (pw - iw)/2, m, iw, ih);
+        pdf.save('phieu-dat-hang-khe-sanh-farm.pdf');
+      }
+      ok();
+    } catch(err){ ok(); alert('Không tạo được phiếu: ' + err); }
+  }).catch(function(err){
+    if(btn){ btn.disabled = false; btn.textContent = type==='png' ? '⬇ Tải ảnh (PNG)' : '⬇ Tải PDF'; }
+    alert('Không tạo được phiếu: ' + err);
+  });
 }
 
 renderPriceTable();
