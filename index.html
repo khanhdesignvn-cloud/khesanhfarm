@@ -470,6 +470,14 @@
   .bp-table td.num{ text-align:right; white-space:nowrap; }
   .bp-table td.discount{ color:#b00020; }
   .bp-table tr:last-child td{ border-bottom:none; }
+  .bp-table td.sell{ font-weight:bold; color:var(--gold-deep); }
+
+  /* ===== Menu giá ===== */
+  .price-menu{ background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:8px 0 4px; }
+  .pm-toolbar{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px; }
+  .pm-note{ font-size:12px; color:#6b6050; }
+  .pm-markup{ font-size:13px; font-weight:bold; color:var(--teal-deep); white-space:nowrap; }
+  .pm-markup input{ width:64px; margin:0 4px; padding:6px 8px; border:1px solid var(--line); border-radius:8px; font-size:14px; text-align:center; }
   .bp-footer{
     padding:14px 24px 18px;
     border-top:1px solid var(--line);
@@ -579,6 +587,7 @@
 <nav class="site-nav">
   <div class="nav-mark">KSF</div>
   <a href="#san-pham">Sản phẩm</a>
+  <a href="#menu-gia">Menu giá</a>
   <a href="#gio-qua">Giỏ quà tặng</a>
   <a href="#gui-anh">Gửi ảnh &amp; góp ý</a>
 </nav>
@@ -1149,6 +1158,18 @@
     </div>
   </details>
 
+  <div class="section-label" id="menu-gia">Menu giá</div>
+  <div class="price-menu">
+    <div class="pm-toolbar">
+      <span class="pm-note">Giá bán = giá nhập + lãi. Chỉnh % lãi để giá bán tự cập nhật.</span>
+      <label class="pm-markup">Lãi <input type="number" id="pm-markup" value="40" min="0" max="200" step="5" onchange="renderPriceMenu()">%</label>
+    </div>
+    <table class="bp-table">
+      <thead><tr><th>STT</th><th>Danh mục</th><th>Quy cách</th><th>Giá nhập</th><th>Giá bán</th></tr></thead>
+      <tbody id="pm-body"></tbody>
+    </table>
+  </div>
+
   <div class="section-label" id="gui-anh">Gửi ảnh và góp ý</div>
   <div class="feedback">
     <div class="hint">Ảnh sẽ tự động lưu vào Google Drive của dự án; nội dung góp ý sẽ mở một Issue mới trên GitHub repo, bạn chỉ cần bấm gửi ở tab mới hiện ra.</div>
@@ -1247,6 +1268,29 @@ var BASKET_PRODUCTS = [
 function formatVnd(n){ return n.toLocaleString('vi-VN') + "đ"; }
 function formatWeight(g){ return g >= 1000 ? (g/1000).toLocaleString('vi-VN') + "kg" : g + "g"; }
 
+// Menu giá — giá bán = giá nhập + % lãi (chỉnh % ở trên trang)
+var PRICE_MENU = [
+  { name: "Tinh bột sắn dây",   unit: "Hộp 250gr", cost: 60000 },
+  { name: "Tinh bột nghệ vàng", unit: "Hộp 250gr", cost: 60000 },
+  { name: "Tinh bột nghệ đen",  unit: "Hộp 250gr", cost: 85000 },
+  { name: "Hạt tiêu đen",       unit: "Hộp 250gr", cost: 70000 }
+];
+
+function renderPriceMenu(){
+  var markup = parseInt(document.getElementById('pm-markup').value, 10) || 0;
+  var rows = PRICE_MENU.map(function(p, i){
+    var sell = Math.round(p.cost * (1 + markup/100) / 1000) * 1000;
+    return '<tr>' +
+      '<td class="num">' + (i+1) + '</td>' +
+      '<td class="name">' + p.name + '</td>' +
+      '<td class="num">' + p.unit + '</td>' +
+      '<td class="num">' + p.cost.toLocaleString('vi-VN') + 'đ</td>' +
+      '<td class="num sell">' + sell.toLocaleString('vi-VN') + 'đ</td>' +
+    '</tr>';
+  });
+  document.getElementById('pm-body').innerHTML = rows.join('');
+}
+
 function renderBasket(){
   var itemsEl = document.getElementById('basket-items');
   var totalPrice = 0, totalWeight = 0, totalDiscount = 0;
@@ -1329,6 +1373,7 @@ function exportBasketImage(){
 }
 
 renderBasket();
+renderPriceMenu();
 </script>
 <script>
 // Dán URL Web App của Google Apps Script (sau khi deploy) vào đây
