@@ -246,6 +246,7 @@ body::after{
 .pc-flabel{flex:0 0 170px;color:#5a8060;}
 .pc-fvalue{flex:1;color:var(--ink);}
 .pc-fvalue input[type="number"]{width:90px;border:1px solid var(--line);border-radius:6px;padding:5px 8px;background:#fff;font-size:12px;color:var(--ink);}
+.pc-fvalue input[readonly]{background:#eef3ee;color:#4a6d52;cursor:not-allowed;border-style:dashed;}
 .pc-fvalue .auto-price{color:var(--green-dark);font-weight:bold;}
 .empty-msg{text-align:center;color:#5a8060;font-size:12px;padding:24px 0;display:none;}
 </style>
@@ -447,7 +448,7 @@ html+=field('Vùng nguyên liệu / nguồn gốc',p.origin);
 html+=field('Chứng nhận ATTP',p.cert);
 html+='</div>';
 html+='<div class="pc-fgroup"><h4>Giá thành</h4>';
-html+='<div class="pc-frow"><span class="pc-flabel">Giá nhập</span><span class="pc-fvalue"><input type="number" id="cost-'+p.id+'" value="'+p.cost+'" step="1000" min="0" oninput="onCost(this,'+i+')">đ/đơn vị</span></div>';
+html+='<div class="pc-frow"><span class="pc-flabel">Giá nhập</span><span class="pc-fvalue"><input type="number" id="cost-'+p.id+'" value="'+p.cost+'" class="fixed" readonly>đ/đơn vị</span></div>';
 html+='<div class="pc-frow"><span class="pc-flabel">% lãi</span><span class="pc-fvalue"><input type="number" id="markup-'+p.id+'" value="'+p.markup+'" step="1" min="0" max="300" oninput="onMarkup(this,'+i+')">%</span></div>';
 html+='<div class="pc-frow"><span class="pc-flabel">Giá bán</span><span class="pc-fvalue auto-price" id="price-'+p.id+'">'+fmt(priceOf(p))+'</span></div>';
 html+='</div>';
