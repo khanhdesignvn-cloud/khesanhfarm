@@ -110,6 +110,9 @@
   }
   .price-table input.markup{ width:46px; }
   .price-table .auto{ color:var(--clay); font-weight:bold; white-space:nowrap; }
+  .price-table .sel{ width:16px; height:16px; accent-color:var(--teal-deep); cursor:pointer; }
+  .price-table tr.off td{ opacity:.4; }
+  .price-table tr.off .auto{ text-decoration:line-through; }
 
   .unit-row{
     display:flex; justify-content:space-between; align-items:center;
@@ -255,7 +258,7 @@
       <div class="order-body">
         <div class="table-scroll">
           <table class="price-table">
-            <thead><tr><th>STT</th><th>Món quà</th><th>Quy cách</th><th>Giá</th></tr></thead>
+            <thead><tr><th>Chọn</th><th>STT</th><th>Món quà</th><th>Quy cách</th><th>Giá</th></tr></thead>
             <tbody id="pay-tbody"></tbody>
           </table>
         </div>
@@ -362,16 +365,16 @@
 <script>
 
 var PRODUCTS = [
-  { id:"ht",   name:"Hạt tiêu đen",       qc:"Hộp 250g", cost:70000, markup:40 },
-  { id:"mc",   name:"Mắc ca",             qc:"Hộp 250g", cost:50000, markup:50 },
-  { id:"tbn",  name:"Tinh bột nghệ vàng", qc:"Hộp 250g", cost:60000, markup:40 },
-  { id:"tbs",  name:"Tinh bột sắn dây",   qc:"Hộp 250g", cost:60000, markup:40 },
-  { id:"tbnd", name:"Tinh bột nghệ đen",  qc:"Hộp 250g", cost:85000, markup:40 }
+  { id:"ht",   name:"Hạt tiêu đen",       qc:"Hộp 250g", cost:70000, markup:40, on:true },
+  { id:"mc",   name:"Mắc ca",             qc:"Hộp 250g", cost:50000, markup:50, on:true },
+  { id:"tbn",  name:"Tinh bột nghệ vàng", qc:"Hộp 250g", cost:60000, markup:40, on:true },
+  { id:"tbs",  name:"Tinh bột sắn dây",   qc:"Hộp 250g", cost:60000, markup:40, on:true },
+  { id:"tbnd", name:"Tinh bột nghệ đen",  qc:"Hộp 250g", cost:85000, markup:40, on:true }
 ];
 
 function fmt(n){ return n.toLocaleString('vi-VN') + 'đ'; }
 function priceOf(p){ return Math.round(p.cost * (1 + p.markup/100) / 1000) * 1000; }
-function unitTotal(){ var t=0; PRODUCTS.forEach(function(p){ t += priceOf(p); }); return t; }
+function unitTotal(){ var t=0; PRODUCTS.forEach(function(p){ if(p.on) t += priceOf(p); }); return t; }
 
 function switchTab(name){
   document.getElementById('tab-pay').classList.toggle('active', name==='pay');
@@ -398,7 +401,8 @@ function renderPriceTable(){
 function renderPayTable(){
   var rows='';
   PRODUCTS.forEach(function(p,i){
-    rows += '<tr>' +
+    rows += '<tr id="payrow-'+p.id+'">' +
+      '<td><input type="checkbox" class="sel" id="sel-'+p.id+'" ' + (p.on?'checked':'') + ' onchange="toggleSel(\''+p.id+'\')"></td>' +
       '<td>' + (i+1) + '</td>' +
       '<td class="p-name">' + p.name + '</td>' +
       '<td class="p-qc">' + p.qc + '</td>' +
@@ -406,6 +410,14 @@ function renderPayTable(){
     '</tr>';
   });
   document.getElementById('pay-tbody').innerHTML = rows;
+}
+
+function toggleSel(id){
+  PRODUCTS.forEach(function(p){ if(p.id === id){ p.on = !p.on; } });
+  var chk = document.getElementById('sel-'+id);
+  var row = document.getElementById('payrow-'+id);
+  if(row){ row.classList.toggle('off', !chk.checked); }
+  updatePayTotals();
 }
 
 function onCost(el, i){ PRODUCTS[i].cost = parseInt(el.value,10)||0; sync(); }
