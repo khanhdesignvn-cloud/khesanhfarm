@@ -295,6 +295,7 @@ body.dark .empty-msg{ color:var(--green-lime); }
   <button class="filter-tab" data-cat="Gia vị" onclick="setCat('Gia vị',this)">Gia vị</button>
   <button class="filter-tab" data-cat="Hạt sấy" onclick="setCat('Hạt sấy',this)">Hạt sấy</button>
   <button class="filter-tab" data-cat="Tinh bột" onclick="setCat('Tinh bột',this)">Tinh bột</button>
+  <button class="filter-tab" data-cat="Cà phê" onclick="setCat('Cà phê',this)">Cà phê</button>
   <div class="search-box"><input type="text" id="pc-search" placeholder="Tìm theo tên hoặc mã sản phẩm..." oninput="renderProductCards()"></div>
 </div>
 <div id="products-list"></div>
@@ -406,7 +407,25 @@ var PRODUCTS = [
   hdsd:"Pha với nước ấm để uống, hoặc dùng theo hướng dẫn y học cổ truyền.",
   hdbq:"Bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.",
   canh_bao:"Phụ nữ mang thai, đang cho con bú nên tham khảo ý kiến chuyên gia trước khi dùng.",
-  nutrition:[["Năng lượng","350 kcal"],["Chất béo","3 g"],["Carbohydrate","65 g"],["Chất xơ","20 g"],["Đường","3 g"],["Protein","8 g"]] }
+  nutrition:[["Năng lượng","350 kcal"],["Chất béo","3 g"],["Carbohydrate","65 g"],["Chất xơ","20 g"],["Đường","3 g"],["Protein","8 g"]] },
+{ id:"ca", code:"KSF-CA-007", name:"Cà phê Arabica", en:"Arabica Coffee", category:"Cà phê", status:"Đang bán", qc:"Túi 250g", cost:100000, markup:40,
+  pack_name:"CÀ PHÊ ARABICA KHE SANH — ARABICA COFFEE", pack_type:"Túi giấy kraft có van một chiều", material:"Giấy kraft, van thoát khí một chiều",
+  origin:"Xã Tà Cơn, huyện Hướng Hóa, tỉnh Quảng Trị", shelf_life:"12 tháng kể từ ngày rang", cert:"Đã có bản tự công bố ATTP",
+  supplier:"Hợp tác xã cà phê Tà Cơn Khe Sanh", season:"Thu hoạch tháng 10–12", min_stock:"20 túi", note:"Hạt rang mộc, rang vừa", on:false,
+  thanh_phan:"100% hạt cà phê Arabica Khe Sanh rang mộc, không tẩm ướp, không phụ gia.",
+  hdsd:"Xay vừa phải, pha phin hoặc máy pha cà phê; tỉ lệ tham khảo 20g bột : 100ml nước.",
+  hdbq:"Đậy kín túi sau khi mở, bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.",
+  canh_bao:"Sản phẩm chứa caffeine, không phù hợp cho người mẫn cảm với caffeine.",
+  nutrition:[["Năng lượng","200 kcal"],["Chất béo","14 g"],["Carbohydrate","44 g"],["Chất xơ","35 g"],["Đường","0 g"],["Protein","12 g"]] },
+{ id:"cl", code:"KSF-CL-008", name:"Cà phê Liberica", en:"Liberica Coffee", category:"Cà phê", status:"Đang bán", qc:"Túi 250g", cost:120000, markup:40,
+  pack_name:"CÀ PHÊ LIBERICA KHE SANH — LIBERICA COFFEE", pack_type:"Túi giấy kraft có van một chiều", material:"Giấy kraft, van thoát khí một chiều",
+  origin:"Xã Tà Cơn, huyện Hướng Hóa, tỉnh Quảng Trị", shelf_life:"12 tháng kể từ ngày rang", cert:"Đã có bản tự công bố ATTP",
+  supplier:"Hộ nông dân liên kết — vùng cà phê Khe Sanh", season:"Thu hoạch tháng 8–10", min_stock:"15 túi", note:"Cà phê mít, hương đặc trưng", on:false,
+  thanh_phan:"100% hạt cà phê Liberica (cà phê mít) Khe Sanh rang mộc, không tẩm ướp, không phụ gia.",
+  hdsd:"Xay vừa phải, pha phin hoặc máy pha cà phê; tỉ lệ tham khảo 20g bột : 100ml nước.",
+  hdbq:"Đậy kín túi sau khi mở, bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.",
+  canh_bao:"Sản phẩm chứa caffeine, không phù hợp cho người mẫn cảm với caffeine.",
+  nutrition:[["Năng lượng","210 kcal"],["Chất béo","15 g"],["Carbohydrate","46 g"],["Chất xơ","33 g"],["Đường","0 g"],["Protein","11 g"]] }
 ];
 var activeCat = 'all';
 function fmt(n){ return n.toLocaleString('vi-VN') + 'đ'; }
