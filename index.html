@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>Khe Sanh Farm — Bảng giá & Đặt hàng</title>
+<title>Khe Sanh Farm — Đặt hàng & Thanh toán</title>
 <style>
 @font-face{
     font-family:'SVN Vintage';
@@ -62,7 +62,6 @@
 
   .section-label{ font-family:'SVN Vintage', Georgia, serif; font-size:20px; color:var(--teal-deep); margin:26px 4px 4px; }
 
-  /* ===== Products intro ===== */
   .products-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px; margin:14px 4px 0; }
   .product-card{ background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
   .pc-name{ font-family:'SVN Vintage', Georgia, serif; font-size:16px; color:var(--teal-deep); }
@@ -70,13 +69,22 @@
   .pc-desc{ font-size:11px; color:#6b6050; margin-top:7px; line-height:1.55; }
   .pc-qc{ font-size:10px; color:var(--teal); margin-top:7px; font-weight:bold; }
 
-  /* ===== Order card (price menu + payment in ONE box) ===== */
+  /* ===== Tabs ===== */
+  .tabs{ display:flex; gap:8px; margin:16px 4px 0; }
+  .tab-btn{
+    flex:1; padding:11px 14px; border:1.5px solid var(--teal); background:#fff;
+    color:var(--teal-deep); border-radius:10px 10px 0 0; font-family:Arial, sans-serif;
+    font-size:13px; font-weight:bold; cursor:pointer;
+  }
+  .tab-btn.active{ background:var(--teal-deep); color:var(--cream); border-color:var(--teal-deep); }
+  .tab-panel{ display:none; }
+  .tab-panel.active{ display:block; }
+
   .order-card{
     background:var(--paper);
     border:1.5px solid var(--teal);
-    border-radius:14px;
+    border-radius:0 0 14px 14px;
     overflow:hidden;
-    margin-top:16px;
     box-shadow:0 18px 40px -20px rgba(42,33,24,0.35);
   }
   .order-head{
@@ -90,9 +98,9 @@
   .order-body{ padding:16px 20px 22px; }
 
   .table-scroll{ overflow-x:auto; }
-  .price-table{ width:100%; border-collapse:collapse; font-family:Arial, sans-serif; font-size:12.5px; min-width:640px; }
+  .price-table{ width:100%; border-collapse:collapse; font-family:Arial, sans-serif; font-size:12.5px; min-width:520px; }
   .price-table th{ background:var(--cream); color:var(--teal-deep); padding:9px 6px; font-size:11px; border-bottom:2px solid var(--teal-deep); white-space:nowrap; }
-  .price-table td{ padding:7px 6px; text-align:center; border-bottom:1px dashed var(--line); vertical-align:middle; }
+  .price-table td{ padding:8px 6px; text-align:center; border-bottom:1px dashed var(--line); vertical-align:middle; }
   .price-table tr:last-child td{ border-bottom:none; }
   .price-table td.p-name{ text-align:left; font-weight:bold; color:var(--ink); white-space:nowrap; }
   .price-table td.p-qc{ color:#6b6050; font-size:10.5px; white-space:nowrap; }
@@ -101,19 +109,35 @@
     padding:5px 6px; background:#fff; text-align:center; font-size:12px; color:var(--ink);
   }
   .price-table input.markup{ width:46px; }
-  .price-table input.qty{ width:56px; }
   .price-table .auto{ color:var(--clay); font-weight:bold; white-space:nowrap; }
-  .price-table .line-total{ color:var(--teal-deep); font-weight:bold; white-space:nowrap; }
 
-  .order-total{
+  .unit-row{
     display:flex; justify-content:space-between; align-items:center;
-    margin-top:14px; padding:14px 16px;
+    margin-top:12px; padding:12px 16px;
     background:rgba(14,111,99,0.08); border:1.5px dashed var(--teal); border-radius:10px;
   }
-  .order-total span{ font-size:14px; color:var(--teal-deep); font-weight:bold; }
-  .order-total b{ font-size:24px; color:var(--clay); }
+  .unit-row span{ font-size:14px; color:var(--teal-deep); font-weight:bold; }
+  .unit-row b{ font-size:22px; color:var(--clay); }
 
-  /* ===== Payment (inside order card) ===== */
+  .suat-row{
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+    margin-top:12px; flex-wrap:wrap;
+  }
+  .suat-row label{ font-size:13px; color:var(--teal-deep); font-weight:bold; }
+  .suat-row input{
+    width:80px; border:1.5px solid var(--teal); border-radius:8px;
+    padding:8px 10px; font-size:16px; text-align:center; color:var(--ink); font-weight:bold;
+  }
+
+  .grand-row{
+    display:flex; justify-content:space-between; align-items:center;
+    margin-top:12px; padding:14px 16px;
+    background:var(--teal-deep); border-radius:10px; color:var(--cream);
+  }
+  .grand-row span{ font-size:14px; font-weight:bold; }
+  .grand-row b{ font-size:26px; color:var(--gold); }
+
+  /* ===== Payment ===== */
   .pay{ margin-top:18px; border-top:1px solid var(--line); padding-top:16px; font-family:Arial, sans-serif; }
   .pay-head{ display:flex; align-items:center; gap:12px; padding-bottom:10px; }
   .pay-bank{ width:38px; height:38px; border-radius:8px; background:var(--teal-deep); color:var(--cream); font-weight:bold; font-size:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
@@ -132,7 +156,6 @@
   .pay-qr-text{ font-size:11px; color:#6b6050; line-height:1.5; flex:1; min-width:180px; }
   .pay-note{ font-size:10px; color:#8a7f6b; margin-top:10px; line-height:1.5; }
 
-  /* ===== Feedback ===== */
   .feedback{ background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:20px 22px; margin-top:14px; }
   .feedback .hint{ font-family:Arial, sans-serif; font-size:10.5px; color:#6b6050; margin-bottom:14px; }
   .feedback label{ display:block; font-family:Arial, sans-serif; font-size:10px; color:var(--teal-deep); margin-bottom:4px; }
@@ -152,6 +175,7 @@
   @media (max-width: 660px){
     .site-nav{ flex-wrap:wrap; gap:10px 14px; }
     .order-body{ padding:12px 14px 16px; }
+    .tab-btn{ font-size:11.5px; padding:10px 8px; }
   }
 </style>
 </head>
@@ -160,7 +184,7 @@
 <nav class="site-nav">
   <div class="nav-mark">KSF</div>
   <a href="#san-pham">Sản phẩm</a>
-  <a href="#dat-hang">Bảng giá &amp; Đặt hàng</a>
+  <a href="#dat-hang">Đặt hàng &amp; Thanh toán</a>
   <a href="#gui-anh">Gửi ảnh &amp; góp ý</a>
 </nav>
 
@@ -169,17 +193,11 @@
   <div class="hero">
     <div class="ksf-mark"><span>KSF</span></div>
     <h1>Khe Sanh <span>Farm</span></h1>
-    <p>Nông sản sạch vùng cao Quảng Trị — chuối sấy giòn, hạt tiêu, mắc ca và các dòng tinh bột nguyên chất.</p>
+    <p>Nông sản sạch vùng cao Quảng Trị — hạt tiêu, mắc ca và các dòng tinh bột nguyên chất.</p>
   </div>
 
   <div class="section-label" id="san-pham">Sản phẩm</div>
   <div class="products-grid">
-    <div class="product-card">
-      <div class="pc-name">Chuối sấy giòn</div>
-      <div class="pc-en">Crispy Dried Banana</div>
-      <div class="pc-desc">Chuối chín 100%, sấy giòn chân không, không đường, không dầu, không chất bảo quản.</div>
-      <div class="pc-qc">Hộp 250g</div>
-    </div>
     <div class="product-card">
       <div class="pc-name">Hạt tiêu đen</div>
       <div class="pc-en">Black Peppercorn</div>
@@ -212,46 +230,77 @@
     </div>
   </div>
 
-  <div class="section-label" id="dat-hang">Bảng giá &amp; Đặt hàng</div>
-  <div class="order-card">
-    <div class="order-head">
-      <div class="oh-title">Bảng giá &amp; Thanh toán</div>
-      <div class="oh-sub">Nhập giá nhập và % lãi — giá bán tự tính. Điền số xuất quà đặt hàng — thành tiền và mã QR chuyển khoản tự cập nhật.</div>
-    </div>
-    <div class="order-body">
-      <div class="table-scroll">
-        <table class="price-table">
-          <thead>
-            <tr>
-              <th>STT</th><th>Sản phẩm</th><th>Quy cách</th><th>Giá nhập</th><th>% lãi</th><th>Giá bán</th><th>Số xuất</th><th>Thành tiền</th>
-            </tr>
-          </thead>
-          <tbody id="price-table-body"></tbody>
-        </table>
-      </div>
+  <div class="section-label" id="dat-hang">Đặt hàng &amp; Thanh toán</div>
 
-      <div class="order-total">
-        <span>Tổng tiền cuối cùng</span>
-        <b id="order-grand-total">0đ</b>
-      </div>
+  <div class="tabs">
+    <button class="tab-btn active" id="btn-pay" onclick="switchTab('pay')">Thanh toán</button>
+    <button class="tab-btn" id="btn-price" onclick="switchTab('price')">Bảng giá (nội bộ)</button>
+  </div>
 
-      <div class="pay">
-        <div class="pay-head">
-          <span class="pay-bank">MB</span>
-          <div>
-            <div class="pay-title">Thanh toán chuyển khoản</div>
-            <div class="pay-sub">Ngân hàng TMCP Quân Đội (MB Bank)</div>
+  <div id="tab-pay" class="tab-panel active">
+    <div class="order-card">
+      <div class="order-head">
+        <div class="oh-title">Quà tặng Khe Sanh Farm</div>
+        <div class="oh-sub">Mỗi suất quà gồm các món dưới đây. Quý khách nhập số suất muốn đặt — tổng tiền và mã chuyển khoản tự cập nhật.</div>
+      </div>
+      <div class="order-body">
+        <div class="table-scroll">
+          <table class="price-table">
+            <thead><tr><th>STT</th><th>Món quà</th><th>Quy cách</th><th>Giá</th></tr></thead>
+            <tbody id="pay-tbody"></tbody>
+          </table>
+        </div>
+
+        <div class="unit-row">
+          <span>Giá trọn gói 1 suất quà</span>
+          <b id="unit-total">0đ</b>
+        </div>
+
+        <div class="suat-row">
+          <label for="suat-input">Số suất đặt hàng</label>
+          <input type="number" id="suat-input" value="1" min="1" step="1" oninput="updatePayTotals()">
+        </div>
+
+        <div class="grand-row">
+          <span>Tổng số tiền cần chuyển khoản</span>
+          <b id="grand-total">0đ</b>
+        </div>
+
+        <div class="pay">
+          <div class="pay-head">
+            <span class="pay-bank">MB</span>
+            <div>
+              <div class="pay-title">Thanh toán chuyển khoản</div>
+              <div class="pay-sub">Ngân hàng TMCP Quân Đội (MB Bank)</div>
+            </div>
           </div>
+          <div class="pay-row"><span>Chủ tài khoản</span><b>Trần Thái Thiên</b></div>
+          <div class="pay-row"><span>Số tài khoản</span><span style="display:flex;align-items:center;gap:8px;"><b class="pay-num">0888085588</b><button class="copy-btn" onclick="copyPay(this,'0888085588')">Sao chép</button></span></div>
+          <div class="pay-row"><span>SĐT</span><b>0888085588</b></div>
+          <div class="pay-amount-row"><span>Số tiền cần chuyển</span><b id="pay-amount">0đ</b></div>
+          <div class="pay-qr-row">
+            <img id="pay-qr" alt="QR chuyển khoản">
+            <div class="pay-qr-text">Quét mã QR bằng app ngân hàng để chuyển khoản nhanh — mã tự cập nhật theo đúng tổng tiền.</div>
+          </div>
+          <div class="pay-note">Nội dung chuyển khoản: ghi rõ họ tên người gửi để Ban Liên Lạc đối soát đơn hàng.</div>
         </div>
-        <div class="pay-row"><span>Chủ tài khoản</span><b>Trần Thái Thiên</b></div>
-        <div class="pay-row"><span>Số tài khoản</span><span style="display:flex;align-items:center;gap:8px;"><b class="pay-num">0888085588</b><button class="copy-btn" onclick="copyPay(this,'0888085588')">Sao chép</button></span></div>
-        <div class="pay-row"><span>SĐT</span><b>0888085588</b></div>
-        <div class="pay-amount-row"><span>Số tiền cần chuyển</span><b id="pay-amount">0đ</b></div>
-        <div class="pay-qr-row">
-          <img id="pay-qr" alt="QR chuyển khoản">
-          <div class="pay-qr-text">Quét mã QR bằng app ngân hàng để chuyển khoản nhanh — mã tự cập nhật theo đúng số tiền cuối cùng.</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="tab-price" class="tab-panel">
+    <div class="order-card">
+      <div class="order-head">
+        <div class="oh-title">Bảng giá (nội bộ)</div>
+        <div class="oh-sub">Nhập giá nhập và % lãi — giá bán tự tính và tự đồng bộ sang tab Thanh toán. Thông tin này không hiển thị cho khách.</div>
+      </div>
+      <div class="order-body">
+        <div class="table-scroll">
+          <table class="price-table">
+            <thead><tr><th>STT</th><th>Sản phẩm</th><th>Quy cách</th><th>Giá nhập</th><th>% lãi</th><th>Giá bán</th></tr></thead>
+            <tbody id="price-tbody"></tbody>
+          </table>
         </div>
-        <div class="pay-note">Nội dung chuyển khoản: ghi rõ họ tên người gửi để Ban Liên Lạc đối soát đơn hàng.</div>
       </div>
     </div>
   </div>
@@ -297,53 +346,69 @@
 <script>
 
 var PRODUCTS = [
-  { id:"cs",   name:"Chuối sấy giòn",     qc:"Hộp 250g", cost:45000,  markup:0,  qty:0 },
-  { id:"ht",   name:"Hạt tiêu đen",       qc:"Hộp 250g", cost:70000,  markup:40, qty:0 },
-  { id:"mc",   name:"Mắc ca",             qc:"Hộp 250g", cost:120000, markup:0,  qty:0 },
-  { id:"tbn",  name:"Tinh bột nghệ vàng", qc:"Hộp 250g", cost:60000,  markup:40, qty:0 },
-  { id:"tbs",  name:"Tinh bột sắn dây",   qc:"Hộp 250g", cost:60000,  markup:40, qty:0 },
-  { id:"tbnd", name:"Tinh bột nghệ đen",  qc:"Hộp 250g", cost:85000,  markup:40, qty:0 }
+  { id:"ht",   name:"Hạt tiêu đen",       qc:"Hộp 250g", cost:70000, markup:40 },
+  { id:"mc",   name:"Mắc ca",             qc:"Hộp 250g", cost:50000, markup:50 },
+  { id:"tbn",  name:"Tinh bột nghệ vàng", qc:"Hộp 250g", cost:60000, markup:40 },
+  { id:"tbs",  name:"Tinh bột sắn dây",   qc:"Hộp 250g", cost:60000, markup:40 },
+  { id:"tbnd", name:"Tinh bột nghệ đen",  qc:"Hộp 250g", cost:85000, markup:40 }
 ];
 
 function fmt(n){ return n.toLocaleString('vi-VN') + 'đ'; }
 function priceOf(p){ return Math.round(p.cost * (1 + p.markup/100) / 1000) * 1000; }
+function unitTotal(){ var t=0; PRODUCTS.forEach(function(p){ t += priceOf(p); }); return t; }
 
-function renderTable(){
-  var rows = '';
-  PRODUCTS.forEach(function(p, i){
-    var price = priceOf(p);
-    var line = price * p.qty;
+function switchTab(name){
+  document.getElementById('tab-pay').classList.toggle('active', name==='pay');
+  document.getElementById('tab-price').classList.toggle('active', name==='price');
+  document.getElementById('btn-pay').classList.toggle('active', name==='pay');
+  document.getElementById('btn-price').classList.toggle('active', name==='price');
+}
+
+function renderPriceTable(){
+  var rows='';
+  PRODUCTS.forEach(function(p,i){
     rows += '<tr>' +
       '<td>' + (i+1) + '</td>' +
       '<td class="p-name">' + p.name + '</td>' +
       '<td class="p-qc">' + p.qc + '</td>' +
       '<td><input type="number" id="cost-'+p.id+'" value="'+p.cost+'" step="1000" min="0" oninput="onCost(this,'+i+')"></td>' +
       '<td><input type="number" class="markup" id="markup-'+p.id+'" value="'+p.markup+'" step="1" min="0" max="300" oninput="onMarkup(this,'+i+')"></td>' +
-      '<td class="auto" id="price-'+p.id+'">' + fmt(price) + '</td>' +
-      '<td><input type="number" class="qty" id="qty-'+p.id+'" value="'+p.qty+'" step="1" min="0" oninput="onQty(this,'+i+')"></td>' +
-      '<td class="line-total" id="line-'+p.id+'">' + fmt(line) + '</td>' +
-      '</tr>';
+      '<td class="auto" id="price-'+p.id+'">' + fmt(priceOf(p)) + '</td>' +
+    '</tr>';
   });
-  document.getElementById('price-table-body').innerHTML = rows;
-  updateTotal();
+  document.getElementById('price-tbody').innerHTML = rows;
 }
 
-function onCost(el, i){ PRODUCTS[i].cost = parseInt(el.value,10)||0; updateRow(i); }
-function onMarkup(el, i){ PRODUCTS[i].markup = parseInt(el.value,10)||0; updateRow(i); }
-function onQty(el, i){ PRODUCTS[i].qty = parseInt(el.value,10)||0; updateRow(i); }
-
-function updateRow(i){
-  var p = PRODUCTS[i];
-  var price = priceOf(p);
-  document.getElementById('price-'+p.id).textContent = fmt(price);
-  document.getElementById('line-'+p.id).textContent = fmt(price * p.qty);
-  updateTotal();
+function renderPayTable(){
+  var rows='';
+  PRODUCTS.forEach(function(p,i){
+    rows += '<tr>' +
+      '<td>' + (i+1) + '</td>' +
+      '<td class="p-name">' + p.name + '</td>' +
+      '<td class="p-qc">' + p.qc + '</td>' +
+      '<td class="auto" id="payprice-'+p.id+'">' + fmt(priceOf(p)) + '</td>' +
+    '</tr>';
+  });
+  document.getElementById('pay-tbody').innerHTML = rows;
 }
 
-function updateTotal(){
-  var total = 0;
-  PRODUCTS.forEach(function(p){ total += priceOf(p) * p.qty; });
-  document.getElementById('order-grand-total').textContent = fmt(total);
+function onCost(el, i){ PRODUCTS[i].cost = parseInt(el.value,10)||0; sync(); }
+function onMarkup(el, i){ PRODUCTS[i].markup = parseInt(el.value,10)||0; sync(); }
+
+function sync(){
+  PRODUCTS.forEach(function(p){
+    document.getElementById('price-'+p.id).textContent = fmt(priceOf(p));
+    document.getElementById('payprice-'+p.id).textContent = fmt(priceOf(p));
+  });
+  updatePayTotals();
+}
+
+function updatePayTotals(){
+  var unit = unitTotal();
+  document.getElementById('unit-total').textContent = fmt(unit);
+  var n = parseInt(document.getElementById('suat-input').value,10)||0;
+  var total = unit * n;
+  document.getElementById('grand-total').textContent = fmt(total);
   document.getElementById('pay-amount').textContent = fmt(total);
   updatePayQr(total);
 }
@@ -371,7 +436,9 @@ function copyPay(btn, num){
   } else { fallback(); }
 }
 
-renderTable();
+renderPriceTable();
+renderPayTable();
+updatePayTotals();
 </script>
 <script>
 // Dán URL Web App của Google Apps Script (sau khi deploy) vào đây
