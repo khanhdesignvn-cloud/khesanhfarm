@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quản lý danh mục sản phẩm | Khe Sanh Farm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#1d5e3c;--green2:#2e7d52;--lime:#c5dc5c;--cream:#f3f8e7;--paper:#fff;--ink:#173629;--muted:#66776e;--line:#dce8d4;--red:#b93838;--shadow:0 14px 38px rgba(29,94,60,.11)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#edf6dc,#f9fbf3 58%,#e4efd2);color:var(--ink);font-family:"Be Vietnam Pro",sans-serif}.wrap{width:min(1240px,calc(100% - 32px));margin:auto}header{background:var(--green);color:#fff;padding:22px 0;border-bottom:5px solid var(--lime)}.head{display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{font-weight:800;font-size:22px}.brand small{display:block;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--lime);margin-bottom:4px}.back{color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:9px 14px;font-size:13px}.hero{padding:38px 0 22px}.hero h1{font-size:clamp(27px,4vw,46px);line-height:1.1;margin:0 0 10px}.hero p{margin:0;color:var(--muted);max-width:760px}.formula{display:inline-flex;align-items:center;gap:7px;margin-top:18px;padding:10px 14px;border-radius:12px;background:#e5f0c7;color:var(--green);font-size:13px;font-weight:700}.formula b{background:var(--green);color:#fff;border-radius:7px;padding:4px 7px}.layout{display:grid;grid-template-columns:390px 1fr;gap:22px;padding-bottom:50px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}.form-panel{padding:23px;align-self:start;position:sticky;top:18px}.panel-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.panel-title h2{font-size:18px;margin:0}.badge{font-size:11px;background:var(--lime);color:var(--green);font-weight:800;padding:5px 9px;border-radius:999px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{margin-bottom:13px}.field.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:#315543}input,select,textarea{width:100%;border:1px solid #cadcc2;border-radius:10px;padding:10px 11px;background:#fbfdf8;color:var(--ink);font:inherit;font-size:13px;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--green2);box-shadow:0 0 0 3px rgba(46,125,82,.12)}input[readonly]{background:#edf3e7;font-weight:700;color:var(--green)}textarea{min-height:66px;resize:vertical}.price-preview{background:var(--green);color:white;border-radius:14px;padding:14px;margin:3px 0 16px;display:flex;justify-content:space-between;gap:12px}.price-preview small{display:block;color:#cee2d4;font-size:10px;text-transform:uppercase;letter-spacing:.1em}.price-preview strong{font-size:20px;color:var(--lime)}.actions{display:flex;gap:9px}.btn{border:0;border-radius:11px;padding:11px 14px;font:inherit;font-weight:700;font-size:13px;cursor:pointer}.btn-primary{background:var(--green);color:#fff;flex:1}.btn-soft{background:#e7efdf;color:var(--green)}.list-panel{padding:20px;min-width:0}.toolbar{display:flex;gap:10px;align-items:center;margin-bottom:16px}.toolbar input{flex:1}.toolbar .btn{white-space:nowrap}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:17px}.stat{background:#f4f8ed;border:1px solid var(--line);border-radius:13px;padding:12px}.stat small{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em}.stat strong{display:block;font-size:20px;color:var(--green);margin-top:3px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{border-collapse:collapse;width:100%;min-width:960px}th{background:#e9f1e0;color:var(--green);font-size:11px;text-transform:uppercase;letter-spacing:.05em;text-align:left;padding:11px 10px;white-space:nowrap}td{padding:11px 10px;border-top:1px solid var(--line);font-size:12px;vertical-align:middle}tbody tr:hover{background:#fbfdf8}.sku{font-weight:800;color:var(--green);white-space:nowrap}.money{font-weight:700;white-space:nowrap}.status{display:inline-block;border-radius:999px;padding:4px 8px;font-size:10px;font-weight:800}.selling{background:#ddf1d7;color:#276640}.paused{background:#fff0c9;color:#8a6200}.stopped{background:#f6dada;color:#8d2d2d}.row-actions{display:flex;gap:5px}.mini{border:1px solid var(--line);background:white;border-radius:8px;padding:6px 8px;cursor:pointer;color:var(--green);font-size:11px}.mini.del{color:var(--red)}.empty{text-align:center;color:var(--muted);padding:32px}.note{font-size:11px;color:var(--muted);margin-top:12px;line-height:1.5}@media(max-width:900px){.layout{grid-template-columns:1fr}.form-panel{position:static}.stats{grid-template-columns:1fr}.head{align-items:flex-start}.toolbar{flex-wrap:wrap}.toolbar input{flex-basis:100%}}@media(max-width:500px){.grid2{grid-template-columns:1fr}.field.full{grid-column:auto}.wrap{width:min(100% - 20px,1240px)}}
+</style>
+</head>
+<body>
+<header><div class="wrap head"><div class="brand"><small>Hệ thống nội bộ</small>Khe Sanh Farm</div><a class="back" href="./">← Về trang bán hàng</a></div></header>
+<main class="wrap">
+<section class="hero"><h1>Danh mục sản phẩm</h1><p>Tạo mã, quản lý giá, chiết khấu và nguồn hàng trong một nơi. Đây là bản demo, dữ liệu đang được lưu trên trình duyệt.</p><div class="formula">Mã sản phẩm = <b>Mã nhóm</b> + <b>Mã NCC</b> + <b>STT</b></div></section>
+<section class="layout">
+<form class="panel form-panel" id="product-form">
+<div class="panel-title"><h2 id="form-title">Thêm sản phẩm</h2><span class="badge">DEMO</span></div>
+<input type="hidden" id="edit-id">
+<div class="grid2">
+<div class="field"><label for="group-code">Mã nhóm</label><input id="group-code" maxlength="10" placeholder="VD: CP100" required></div>
+<div class="field"><label for="supplier-code">Mã NCC</label><input id="supplier-code" maxlength="10" placeholder="VD: TACON" required></div>
+<div class="field"><label for="serial">STT</label><input id="serial" type="number" min="1" max="999" placeholder="001" required></div>
+<div class="field"><label for="code-name">Tên mã</label><input id="code-name" placeholder="ARABICA-SIGNATURE" required></div>
+<div class="field full"><label for="sku">Mã sản phẩm tự tạo</label><input id="sku" readonly placeholder="CP100-TACON-001"></div>
+<div class="field full"><label for="product-name">Tên sản phẩm</label><input id="product-name" placeholder="100 Arabica Signature" required></div>
+<div class="field"><label for="category">Nhóm hàng</label><input id="category" placeholder="Cà phê 100" required></div>
+<div class="field"><label for="pack">Quy cách</label><input id="pack" placeholder="Túi giấy 250gr" required></div>
+<div class="field full"><label for="supplier-name">Nhà cung cấp</label><input id="supplier-name" placeholder="HTX cà phê Tà Cơn"></div>
+<div class="field full"><label for="source">Nguồn hàng</label><input id="source" placeholder="Tà Cơn, Khe Sanh, Quảng Trị"></div>
+<div class="field"><label for="cost">Giá nhập</label><input id="cost" type="number" min="0" step="1000" value="0"></div>
+<div class="field"><label for="markup">Tỷ lệ lãi (%)</label><input id="markup" type="number" min="0" step="1" value="40"></div>
+<div class="field"><label for="discount">Chiết khấu (%)</label><input id="discount" type="number" min="0" max="100" step="1" value="5"></div>
+<div class="field"><label for="stock">Tồn kho</label><input id="stock" type="number" min="0" step="1" value="0"></div>
+<div class="field full"><label for="status">Trạng thái</label><select id="status"><option>Đang bán</option><option>Tạm hết</option><option>Ngừng bán</option></select></div>
+<div class="field full"><label for="note">Ghi chú</label><textarea id="note" placeholder="Mùa vụ, tiêu chuẩn rang, thời gian giao hàng..."></textarea></div>
+</div>
+<div class="price-preview"><div><small>Giá bán đề xuất</small><strong id="sell-preview">0đ</strong></div><div style="text-align:right"><small>Sau chiết khấu</small><strong id="discount-preview">0đ</strong></div></div>
+<div class="actions"><button class="btn btn-primary" type="submit" id="save-btn">Lưu sản phẩm</button><button class="btn btn-soft" type="button" onclick="resetForm()">Làm mới</button></div>
+<div class="note">Bản chính thức sẽ đồng bộ dữ liệu JSON qua backend Hermes, không lưu token GitHub trong trình duyệt.</div>
+</form>
+<section class="panel list-panel">
+<div class="toolbar"><input id="search" placeholder="Tìm tên, SKU, mã nhóm hoặc nhà cung cấp..." oninput="render()"><button class="btn btn-soft" onclick="exportJson()">Xuất JSON</button><button class="btn btn-soft" onclick="resetDemo()">Khôi phục demo</button></div>
+<div class="stats"><div class="stat"><small>Sản phẩm</small><strong id="stat-products">0</strong></div><div class="stat"><small>Đang bán</small><strong id="stat-selling">0</strong></div><div class="stat"><small>Giá trị tồn kho</small><strong id="stat-stock">0đ</strong></div></div>
+<div class="table-wrap"><table><thead><tr><th>STT</th><th>Mã sản phẩm</th><th>Tên mã / sản phẩm</th><th>Nhóm</th><th>NCC / nguồn hàng</th><th>Giá nhập</th><th>Giá bán</th><th>CK</th><th>Tồn</th><th>Trạng thái</th><th>Thao tác</th></tr></thead><tbody id="product-tbody"></tbody></table><div id="empty" class="empty" hidden>Không có sản phẩm phù hợp.</div></div>
+</section>
+</section>
+</main>
+<script>
+var STORAGE_KEY='ksf_product_manager_demo_v1';
+var SEED=[
+{id:'ca',groupCode:'CP100',supplierCode:'TACON',serial:1,codeName:'ARABICA-SIGNATURE',name:'100 Arabica Signature',category:'Cà phê 100',pack:'Túi giấy 250gr',supplierName:'HTX cà phê Tà Cơn',source:'Tà Cơn, Khe Sanh, Quảng Trị',cost:100000,markup:40,discount:5,stock:20,status:'Đang bán',note:'Hạt rang mộc, rang vừa'},
+{id:'cl',groupCode:'CP100',supplierCode:'KSF',serial:2,codeName:'LIBERICA',name:'Liberica',category:'Cà phê 100',pack:'Túi giấy 250gr',supplierName:'Hộ nông dân liên kết',source:'Vùng cà phê Khe Sanh',cost:120000,markup:40,discount:5,stock:15,status:'Đang bán',note:'Cà phê mít, hương đặc trưng'}
+];
+var products=load();
+function load(){try{var x=JSON.parse(localStorage.getItem(STORAGE_KEY));return Array.isArray(x)?x:JSON.parse(JSON.stringify(SEED));}catch(e){return JSON.parse(JSON.stringify(SEED));}}
+function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(products));}
+function val(id){return document.getElementById(id).value.trim();}
+function num(id){return Number(document.getElementById(id).value)||0;}
+function cleanCode(s){return String(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().replace(/Đ/g,'D').replace(/[^A-Z0-9]+/g,'-').replace(/^-|-$/g,'');}
+function pad(n){return String(Math.max(0,Number(n)||0)).padStart(3,'0');}
+function makeSku(p){return [cleanCode(p.groupCode),cleanCode(p.supplierCode),pad(p.serial)].join('-');}
+function sellPrice(p){return Math.round((Number(p.cost)||0)*(1+(Number(p.markup)||0)/100)/1000)*1000;}
+function afterDiscount(p){return Math.round(sellPrice(p)*(1-(Number(p.discount)||0)/100)/1000)*1000;}
+function money(n){return new Intl.NumberFormat('vi-VN').format(Number(n)||0)+'đ';}
+function esc(s){return String(s??'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function updateCode(){var p={groupCode:val('group-code'),supplierCode:val('supplier-code'),serial:num('serial')};document.getElementById('sku').value=(p.groupCode||p.supplierCode||p.serial)?makeSku(p):'';updatePrice();}
+function updatePrice(){var p={cost:num('cost'),markup:num('markup'),discount:num('discount')};document.getElementById('sell-preview').textContent=money(sellPrice(p));document.getElementById('discount-preview').textContent=money(afterDiscount(p));}
+['group-code','supplier-code','serial'].forEach(function(id){document.getElementById(id).addEventListener('input',updateCode)});
+['cost','markup','discount'].forEach(function(id){document.getElementById(id).addEventListener('input',updatePrice)});
+document.getElementById('product-form').addEventListener('submit',function(e){e.preventDefault();var editing=val('edit-id');var p={id:editing||('p'+Date.now()),groupCode:cleanCode(val('group-code')),supplierCode:cleanCode(val('supplier-code')),serial:num('serial'),codeName:cleanCode(val('code-name')),name:val('product-name'),category:val('category'),pack:val('pack'),supplierName:val('supplier-name'),source:val('source'),cost:num('cost'),markup:num('markup'),discount:num('discount'),stock:num('stock'),status:val('status'),note:val('note')};var sku=makeSku(p);var duplicate=products.some(function(x){return makeSku(x)===sku&&x.id!==p.id});if(duplicate){alert('Mã sản phẩm '+sku+' đã tồn tại.');return}if(editing){products=products.map(function(x){return x.id===editing?p:x})}else{products.push(p)}save();render();resetForm();});
+function render(){var q=val('search').toLowerCase();var rows=products.filter(function(p){return [makeSku(p),p.codeName,p.name,p.category,p.supplierCode,p.supplierName,p.source].join(' ').toLowerCase().includes(q)});var html=rows.map(function(p){var cls=p.status==='Đang bán'?'selling':p.status==='Tạm hết'?'paused':'stopped';return '<tr><td>'+pad(p.serial)+'</td><td class="sku">'+esc(makeSku(p))+'</td><td><b>'+esc(p.codeName)+'</b><br><span style="color:var(--muted)">'+esc(p.name)+' · '+esc(p.pack)+'</span></td><td>'+esc(p.groupCode)+'<br><span style="color:var(--muted)">'+esc(p.category)+'</span></td><td><b>'+esc(p.supplierCode)+'</b><br><span style="color:var(--muted)">'+esc(p.supplierName||p.source)+'</span></td><td class="money">'+money(p.cost)+'</td><td class="money">'+money(sellPrice(p))+'</td><td>'+p.discount+'%</td><td>'+p.stock+'</td><td><span class="status '+cls+'">'+esc(p.status)+'</span></td><td><div class="row-actions"><button class="mini" onclick="editProduct(\''+p.id+'\')">Sửa</button><button class="mini del" onclick="deleteProduct(\''+p.id+'\')">Xóa</button></div></td></tr>'}).join('');document.getElementById('product-tbody').innerHTML=html;document.getElementById('empty').hidden=rows.length>0;document.getElementById('stat-products').textContent=products.length;document.getElementById('stat-selling').textContent=products.filter(function(p){return p.status==='Đang bán'}).length;document.getElementById('stat-stock').textContent=money(products.reduce(function(s,p){return s+(Number(p.cost)||0)*(Number(p.stock)||0)},0));}
+function editProduct(id){var p=products.find(function(x){return x.id===id});if(!p)return;var map={'edit-id':'id','group-code':'groupCode','supplier-code':'supplierCode','serial':'serial','code-name':'codeName','product-name':'name','category':'category','pack':'pack','supplier-name':'supplierName','source':'source','cost':'cost','markup':'markup','discount':'discount','stock':'stock','status':'status','note':'note'};Object.keys(map).forEach(function(k){document.getElementById(k).value=p[map[k]]??''});document.getElementById('form-title').textContent='Sửa sản phẩm';document.getElementById('save-btn').textContent='Cập nhật sản phẩm';updateCode();window.scrollTo({top:120,behavior:'smooth'});}
+function deleteProduct(id){var p=products.find(function(x){return x.id===id});if(p&&confirm('Xóa sản phẩm '+p.name+'?')){products=products.filter(function(x){return x.id!==id});save();render();}}
+function resetForm(){document.getElementById('product-form').reset();document.getElementById('edit-id').value='';document.getElementById('cost').value=0;document.getElementById('markup').value=40;document.getElementById('discount').value=5;document.getElementById('stock').value=0;document.getElementById('form-title').textContent='Thêm sản phẩm';document.getElementById('save-btn').textContent='Lưu sản phẩm';updateCode();}
+function resetDemo(){if(confirm('Khôi phục lại 2 sản phẩm mẫu?')){products=JSON.parse(JSON.stringify(SEED));save();render();resetForm();}}
+function exportJson(){var blob=new Blob([JSON.stringify(products,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='khesanhfarm-products.json';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);}
+render();updateCode();
+</script>
+</body>
+</html>
