@@ -15,19 +15,19 @@
 <body>
 <header><div class="wrap head"><div class="brand"><small>Hệ thống nội bộ</small>Khe Sanh Farm</div><a class="back" href="./">← Về trang bán hàng</a></div></header>
 <main class="wrap">
-<section class="hero"><h1>Danh mục sản phẩm</h1><p>Tạo mã, quản lý giá, chiết khấu và nguồn hàng trong một nơi. Đây là bản demo, dữ liệu đang được lưu trên trình duyệt.</p><div class="formula">Mã sản phẩm = <b>Mã nhóm</b> + <b>Mã NCC</b> + <b>STT</b></div></section>
+<section class="hero"><h1>Tạo sản phẩm</h1><p>Chỉ cần chọn các tab bên dưới, tên và mã sản phẩm sẽ được đặt đúng quy tắc.</p><div class="formula">Mã sản phẩm = <b>Mã nhóm</b> + <b>Mã NCC</b> + <b>STT tự tăng</b></div></section>
 <section class="layout">
 <form class="panel form-panel" id="product-form">
 <div class="panel-title"><h2 id="form-title">Thêm sản phẩm</h2><span class="badge">DEMO</span></div>
 <input type="hidden" id="edit-id">
 <div class="grid2">
-<div class="field"><label for="group-code">Mã nhóm</label><input id="group-code" maxlength="10" placeholder="VD: CP100" required></div>
-<div class="field"><label for="supplier-code">Mã NCC</label><input id="supplier-code" maxlength="10" placeholder="VD: TACON" required></div>
-<div class="field"><label for="serial">STT</label><input id="serial" type="number" min="1" max="999" placeholder="001" required></div>
-<div class="field"><label for="code-name">Tên mã</label><input id="code-name" placeholder="ARABICA-SIGNATURE" required></div>
+<div class="field"><label for="group-code">1. Chọn mã nhóm</label><select id="group-code" required><option value="">Chọn nhóm hàng</option><option value="CP100">CP100 · Cà phê 100</option><option value="GV">GV · Gia vị</option><option value="HS">HS · Hạt sấy</option><option value="TB">TB · Tinh bột</option></select></div>
+<div class="field"><label for="supplier-code">2. Chọn mã NCC</label><select id="supplier-code" required><option value="">Chọn nhà cung cấp</option><option value="TACON">TACON · HTX Tà Cơn</option><option value="KSF">KSF · Khe Sanh Farm</option><option value="NDLK">NDLK · Nông dân liên kết</option></select></div>
+<div class="field full"><label for="code-name">3. Chọn tên mã</label><select id="code-name" required><option value="">Chọn tên mã chuẩn</option><option value="ARABICA-SIGNATURE">ARABICA-SIGNATURE · 100 Arabica Signature</option><option value="LIBERICA">LIBERICA · Liberica</option><option value="HAT-TIEU-DEN">HAT-TIEU-DEN · Hạt tiêu đen</option><option value="MACCA">MACCA · Mắc ca</option><option value="NGHE-VANG">NGHE-VANG · Tinh bột nghệ vàng</option><option value="SAN-DAY">SAN-DAY · Tinh bột sắn dây</option><option value="NGHE-DEN">NGHE-DEN · Tinh bột nghệ đen</option></select></div>
+<div class="field"><label for="serial">STT tự tăng</label><input id="serial" type="number" readonly required></div>
+<div class="field"><label for="category">Nhóm hàng</label><input id="category" readonly required></div>
 <div class="field full"><label for="sku">Mã sản phẩm tự tạo</label><input id="sku" readonly placeholder="CP100-TACON-001"></div>
-<div class="field full"><label for="product-name">Tên sản phẩm</label><input id="product-name" placeholder="100 Arabica Signature" required></div>
-<div class="field"><label for="category">Nhóm hàng</label><input id="category" placeholder="Cà phê 100" required></div>
+<div class="field full"><label for="product-name">Tên sản phẩm tự điền</label><input id="product-name" readonly required></div>
 <div class="field"><label for="pack">Quy cách</label><input id="pack" placeholder="Túi giấy 250gr" required></div>
 <div class="field full"><label for="supplier-name">Nhà cung cấp</label><input id="supplier-name" placeholder="HTX cà phê Tà Cơn"></div>
 <div class="field full"><label for="source">Nguồn hàng</label><input id="source" placeholder="Tà Cơn, Khe Sanh, Quảng Trị"></div>
@@ -55,6 +55,21 @@ var SEED=[
 {id:'ca',groupCode:'CP100',supplierCode:'TACON',serial:1,codeName:'ARABICA-SIGNATURE',name:'100 Arabica Signature',category:'Cà phê 100',pack:'Túi giấy 250gr',supplierName:'HTX cà phê Tà Cơn',source:'Tà Cơn, Khe Sanh, Quảng Trị',cost:100000,markup:40,discount:5,stock:20,status:'Đang bán',note:'Hạt rang mộc, rang vừa'},
 {id:'cl',groupCode:'CP100',supplierCode:'KSF',serial:2,codeName:'LIBERICA',name:'Liberica',category:'Cà phê 100',pack:'Túi giấy 250gr',supplierName:'Hộ nông dân liên kết',source:'Vùng cà phê Khe Sanh',cost:120000,markup:40,discount:5,stock:15,status:'Đang bán',note:'Cà phê mít, hương đặc trưng'}
 ];
+var GROUPS={CP100:'Cà phê 100',GV:'Gia vị',HS:'Hạt sấy',TB:'Tinh bột'};
+var NAMES={
+ 'ARABICA-SIGNATURE':{name:'100 Arabica Signature',group:'CP100',pack:'Túi giấy 250gr'},
+ 'LIBERICA':{name:'Liberica',group:'CP100',pack:'Túi giấy 250gr'},
+ 'HAT-TIEU-DEN':{name:'Hạt tiêu đen',group:'GV',pack:'Hộp 250gr'},
+ 'MACCA':{name:'Mắc ca',group:'HS',pack:'Hộp 250gr'},
+ 'NGHE-VANG':{name:'Tinh bột nghệ vàng',group:'TB',pack:'Hộp 250gr'},
+ 'SAN-DAY':{name:'Tinh bột sắn dây',group:'TB',pack:'Hộp 250gr'},
+ 'NGHE-DEN':{name:'Tinh bột nghệ đen',group:'TB',pack:'Hộp 250gr'}
+};
+var SUPPLIERS={
+ TACON:{name:'HTX cà phê Tà Cơn',source:'Tà Cơn, Khe Sanh, Quảng Trị'},
+ KSF:{name:'Khe Sanh Farm',source:'Khe Sanh, Quảng Trị'},
+ NDLK:{name:'Hộ nông dân liên kết',source:'Vùng nguyên liệu Khe Sanh'}
+};
 var products=load();
 function load(){try{var x=JSON.parse(localStorage.getItem(STORAGE_KEY));return Array.isArray(x)?x:JSON.parse(JSON.stringify(SEED));}catch(e){return JSON.parse(JSON.stringify(SEED));}}
 function save(){localStorage.setItem(STORAGE_KEY,JSON.stringify(products));}
@@ -67,15 +82,24 @@ function sellPrice(p){return Math.round((Number(p.cost)||0)*(1+(Number(p.markup)
 function afterDiscount(p){return Math.round(sellPrice(p)*(1-(Number(p.discount)||0)/100)/1000)*1000;}
 function money(n){return new Intl.NumberFormat('vi-VN').format(Number(n)||0)+'đ';}
 function esc(s){return String(s??'').replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function nextSerial(group,supplier){var used=products.filter(function(p){return p.groupCode===group&&p.supplierCode===supplier}).map(function(p){return Number(p.serial)||0});return Math.max.apply(null,[0].concat(used))+1;}
+function updateSelections(){
+ var editing=val('edit-id');var group=val('group-code');var supplier=val('supplier-code');var codeName=val('code-name');var item=NAMES[codeName];
+ if(item){if(group!==item.group)document.getElementById('group-code').value=item.group;group=item.group;document.getElementById('product-name').value=item.name;document.getElementById('pack').value=item.pack;}
+ document.getElementById('category').value=GROUPS[group]||'';
+ if(!editing)document.getElementById('serial').value=(group&&supplier)?nextSerial(group,supplier):'';
+ var s=SUPPLIERS[supplier];if(s){document.getElementById('supplier-name').value=s.name;document.getElementById('source').value=s.source;}
+ updateCode();
+}
 function updateCode(){var p={groupCode:val('group-code'),supplierCode:val('supplier-code'),serial:num('serial')};document.getElementById('sku').value=(p.groupCode||p.supplierCode||p.serial)?makeSku(p):'';updatePrice();}
 function updatePrice(){var p={cost:num('cost'),markup:num('markup'),discount:num('discount')};document.getElementById('sell-preview').textContent=money(sellPrice(p));document.getElementById('discount-preview').textContent=money(afterDiscount(p));}
-['group-code','supplier-code','serial'].forEach(function(id){document.getElementById(id).addEventListener('input',updateCode)});
+['group-code','supplier-code','code-name'].forEach(function(id){document.getElementById(id).addEventListener('change',updateSelections)});
 ['cost','markup','discount'].forEach(function(id){document.getElementById(id).addEventListener('input',updatePrice)});
 document.getElementById('product-form').addEventListener('submit',function(e){e.preventDefault();var editing=val('edit-id');var p={id:editing||('p'+Date.now()),groupCode:cleanCode(val('group-code')),supplierCode:cleanCode(val('supplier-code')),serial:num('serial'),codeName:cleanCode(val('code-name')),name:val('product-name'),category:val('category'),pack:val('pack'),supplierName:val('supplier-name'),source:val('source'),cost:num('cost'),markup:num('markup'),discount:num('discount'),stock:num('stock'),status:val('status'),note:val('note')};var sku=makeSku(p);var duplicate=products.some(function(x){return makeSku(x)===sku&&x.id!==p.id});if(duplicate){alert('Mã sản phẩm '+sku+' đã tồn tại.');return}if(editing){products=products.map(function(x){return x.id===editing?p:x})}else{products.push(p)}save();render();resetForm();});
 function render(){var q=val('search').toLowerCase();var rows=products.filter(function(p){return [makeSku(p),p.codeName,p.name,p.category,p.supplierCode,p.supplierName,p.source].join(' ').toLowerCase().includes(q)});var html=rows.map(function(p){var cls=p.status==='Đang bán'?'selling':p.status==='Tạm hết'?'paused':'stopped';return '<tr><td>'+pad(p.serial)+'</td><td class="sku">'+esc(makeSku(p))+'</td><td><b>'+esc(p.codeName)+'</b><br><span style="color:var(--muted)">'+esc(p.name)+' · '+esc(p.pack)+'</span></td><td>'+esc(p.groupCode)+'<br><span style="color:var(--muted)">'+esc(p.category)+'</span></td><td><b>'+esc(p.supplierCode)+'</b><br><span style="color:var(--muted)">'+esc(p.supplierName||p.source)+'</span></td><td class="money">'+money(p.cost)+'</td><td class="money">'+money(sellPrice(p))+'</td><td>'+p.discount+'%</td><td>'+p.stock+'</td><td><span class="status '+cls+'">'+esc(p.status)+'</span></td><td><div class="row-actions"><button class="mini" onclick="editProduct(\''+p.id+'\')">Sửa</button><button class="mini del" onclick="deleteProduct(\''+p.id+'\')">Xóa</button></div></td></tr>'}).join('');document.getElementById('product-tbody').innerHTML=html;document.getElementById('empty').hidden=rows.length>0;document.getElementById('stat-products').textContent=products.length;document.getElementById('stat-selling').textContent=products.filter(function(p){return p.status==='Đang bán'}).length;document.getElementById('stat-stock').textContent=money(products.reduce(function(s,p){return s+(Number(p.cost)||0)*(Number(p.stock)||0)},0));}
 function editProduct(id){var p=products.find(function(x){return x.id===id});if(!p)return;var map={'edit-id':'id','group-code':'groupCode','supplier-code':'supplierCode','serial':'serial','code-name':'codeName','product-name':'name','category':'category','pack':'pack','supplier-name':'supplierName','source':'source','cost':'cost','markup':'markup','discount':'discount','stock':'stock','status':'status','note':'note'};Object.keys(map).forEach(function(k){document.getElementById(k).value=p[map[k]]??''});document.getElementById('form-title').textContent='Sửa sản phẩm';document.getElementById('save-btn').textContent='Cập nhật sản phẩm';updateCode();window.scrollTo({top:120,behavior:'smooth'});}
 function deleteProduct(id){var p=products.find(function(x){return x.id===id});if(p&&confirm('Xóa sản phẩm '+p.name+'?')){products=products.filter(function(x){return x.id!==id});save();render();}}
-function resetForm(){document.getElementById('product-form').reset();document.getElementById('edit-id').value='';document.getElementById('cost').value=0;document.getElementById('markup').value=40;document.getElementById('discount').value=5;document.getElementById('stock').value=0;document.getElementById('form-title').textContent='Thêm sản phẩm';document.getElementById('save-btn').textContent='Lưu sản phẩm';updateCode();}
+function resetForm(){document.getElementById('product-form').reset();document.getElementById('edit-id').value='';document.getElementById('serial').value='';document.getElementById('category').value='';document.getElementById('product-name').value='';document.getElementById('sku').value='';document.getElementById('cost').value=0;document.getElementById('markup').value=40;document.getElementById('discount').value=5;document.getElementById('stock').value=0;document.getElementById('form-title').textContent='Thêm sản phẩm';document.getElementById('save-btn').textContent='Lưu sản phẩm';updateSelections();}
 function resetDemo(){if(confirm('Khôi phục lại 2 sản phẩm mẫu?')){products=JSON.parse(JSON.stringify(SEED));save();render();resetForm();}}
 function exportJson(){var blob=new Blob([JSON.stringify(products,null,2)],{type:'application/json'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='khesanhfarm-products.json';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);}
 render();updateCode();
