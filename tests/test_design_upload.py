@@ -25,15 +25,16 @@ with sync_playwright() as pw:
 
     products=page.evaluate('PRODUCTS')
     cards=page.locator('.pc-card')
-    expected_codes=['KSF-CFHT-001','KSF-CFHT-002','KSF-CFPP-001','KSF-CFSG-A01','KSF-CFSG-L01','KSF-CFDS-A01','KSF-CFDS-L01','KSF-TR-001','KSF-TR-002','KSF-DL-001','KSF-DL-002','KSF-TP-001','KSF-TP-002','KSF-TP-003','KSF-TP-004','KSF-TP-005','KSF-TP-006']
-    assert cards.count()==17==len(products)
+    expected_codes=['KSF-CFHT-001','KSF-CFHT-002','KSF-CFPP-001','KSF-CFSG-A01','KSF-CFSG-L01','KSF-CFDS-A01','KSF-CFDS-L01','KSF-TR-001','KSF-TR-002','KSF-DL-001','KSF-DL-002','KSF-DL-003','KSF-TP-001','KSF-TP-002','KSF-TP-003','KSF-TP-004','KSF-TP-005','KSF-TP-006']
+    assert cards.count()==18==len(products)
     assert [p['code'] for p in products]==expected_codes
+    assert next(p for p in products if p['code']=='KSF-DL-003')=={'id':'dl003','code':'KSF-DL-003','category':'Dược liệu','name':'Trà xanh'}
     assert sorted(set(p['category'] for p in products))==['Cà phê','Dược liệu','Thực phẩm','Trà']
     assert page.locator('.filter-tab').all_text_contents()==['Tất cả','Cà phê','Trà','Dược liệu','Thực phẩm']
-    assert page.locator('.design-upload-input[multiple]').count()==17
-    assert page.locator('.design-gallery').count()==17
-    assert page.locator('.publication-content').count()==17
-    assert page.locator('.design-file-status').count()==17
+    assert page.locator('.design-upload-input[multiple]').count()==18
+    assert page.locator('.design-gallery').count()==18
+    assert page.locator('.publication-content').count()==18
+    assert page.locator('.design-file-status').count()==18
 
     first=cards.first
     first.locator('.pc-head').click()
