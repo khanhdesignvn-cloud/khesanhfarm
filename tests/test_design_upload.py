@@ -20,10 +20,18 @@ with sync_playwright() as pw:
     assert page.locator('#dat-hang,#tab-pay,#pay-qr,#phieu-card').count()==0
     assert page.locator('script[src*="html2canvas"],script[src*="jspdf"]').count()==0
 
+    products=page.evaluate('PRODUCTS')
     cards=page.locator('.pc-card')
-    assert cards.count()==len(page.evaluate('PRODUCTS'))
-    assert page.locator('.design-upload-input').count()==cards.count()
-    assert page.locator('.design-upload-preview').count()==cards.count()
+    expected_codes=['KSF-CFHT-001','KSF-CFHT-002','KSF-CFPP-001','KSF-CFSG-A01','KSF-CFSG-L01','KSF-CFDS-A01','KSF-CFDS-L01','KSF-TR-001','KSF-TR-002','KSF-DL-001','KSF-DL-002','KSF-TP-001','KSF-TP-002','KSF-TP-003','KSF-TP-004','KSF-TP-005','KSF-TP-006']
+    assert cards.count()==17==len(products)
+    assert [p['code'] for p in products]==expected_codes
+    assert sorted(set(p['category'] for p in products))==['Cà phê','Dược liệu','Thực phẩm','Trà']
+    assert page.locator('.filter-tab').all_text_contents()==['Tất cả','Cà phê','Trà','Dược liệu','Thực phẩm']
+    assert page.locator('.design-upload-input').count()==17
+    assert page.locator('.design-upload-preview').count()==17
+    assert page.locator('.publication-content').count()==17
+    assert page.locator('.design-file-status').count()==17
+    assert page.locator('input[type="number"],.auto-price').count()==0
 
     first=cards.first
     first.locator('.pc-head').click()

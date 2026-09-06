@@ -132,6 +132,11 @@ body::after{
   .site-nav{flex-wrap:wrap;gap:10px 14px;}
   .order-body{padding:12px 14px 16px;}
   .tab-btn{font-size:11.5px;padding:10px 8px;}
+  .pc-head{flex-wrap:wrap;align-items:flex-start;}
+  .pc-title{order:3;flex-basis:100%;}
+  .pc-chev{margin-left:auto;}
+  .catalog-meta-grid{grid-template-columns:1fr;}
+  .design-storage-note{flex-basis:100%;margin-left:0;}
 }
 
 /* ===== Checklist-style UI (synced) ===== */
@@ -193,6 +198,12 @@ body::after{
 .design-upload-label:hover,.design-remove-btn:hover{opacity:.9}.design-remove-btn{background:#fff;color:#9f2d24;display:none;border-color:#cfa8a2;}
 .design-upload-input{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden;}
 .design-storage-note{font-size:10px;color:#6c8571;margin-left:auto;}
+.catalog-summary{margin:8px 4px 16px;color:#4a6d52;font-size:11.5px;line-height:1.6;}
+.catalog-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0 2px;}
+.catalog-block{border:1px solid var(--line);border-radius:10px;padding:14px;background:rgba(255,255,255,.65);}
+.catalog-block h4{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--green-dark);margin:0 0 8px;}
+.catalog-block small{display:block;color:#6c8571;font-size:10.5px;line-height:1.5;}
+.status-empty{display:inline-block;margin:0 0 8px;padding:4px 9px;border-radius:12px;background:#fbedd6;color:#a66a11;font-size:10.5px;font-weight:bold;}
 .empty-msg{text-align:center;color:#5a8060;font-size:12px;padding:24px 0;display:none;}
 /* ===== Nút đổi nền ===== */
 .theme-btn{
@@ -221,6 +232,15 @@ body.dark .filter-tab{ background:#FFFFFF; border-color:rgba(46,125,82,0.25); }
 body.dark .filter-tab.active{ background:var(--green-deep); color:var(--green-lime); border-color:var(--green-deep); }
 body.dark .search-box input{ background:#FFFFFF; border-color:rgba(46,125,82,0.25); }
 body.dark .empty-msg{ color:var(--green-lime); }
+@media(max-width:660px){
+  .catalog-meta-grid{grid-template-columns:1fr;}
+  .pc-head{display:grid;grid-template-columns:auto 1fr auto auto;align-items:center;}
+  .pc-title{grid-column:1/-1;grid-row:1;min-width:0;}
+  .pc-code{grid-column:1;grid-row:2;}
+  .pc-cat-pill{grid-column:2;grid-row:2;}
+  .pc-status-pill{grid-column:3;grid-row:2;}
+  .pc-chev{grid-column:4;grid-row:2;margin-left:0;}
+}
 </style>
 </head>
 <body>
@@ -234,13 +254,14 @@ body.dark .empty-msg{ color:var(--green-lime); }
 
 <div class="wrap">
 
-<div class="section-label" id="san-pham">Sản phẩm</div>
+<div class="section-label" id="san-pham">Danh mục sản phẩm</div>
+<div class="catalog-summary">17 sản phẩm · 4 nhóm ngành · Theo danh mục Khe Sanh Farm cập nhật mới nhất</div>
 <div class="controls">
   <button class="filter-tab active" data-cat="all" onclick="setCat('all',this)">Tất cả</button>
-  <button class="filter-tab" data-cat="Gia vị" onclick="setCat('Gia vị',this)">Gia vị</button>
-  <button class="filter-tab" data-cat="Hạt sấy" onclick="setCat('Hạt sấy',this)">Hạt sấy</button>
-  <button class="filter-tab" data-cat="Tinh bột" onclick="setCat('Tinh bột',this)">Tinh bột</button>
-  <button class="filter-tab" data-cat="Cà phê 100" onclick="setCat('Cà phê 100',this)">Cà phê 100</button>
+  <button class="filter-tab" data-cat="Cà phê" onclick="setCat('Cà phê',this)">Cà phê</button>
+  <button class="filter-tab" data-cat="Trà" onclick="setCat('Trà',this)">Trà</button>
+  <button class="filter-tab" data-cat="Dược liệu" onclick="setCat('Dược liệu',this)">Dược liệu</button>
+  <button class="filter-tab" data-cat="Thực phẩm" onclick="setCat('Thực phẩm',this)">Thực phẩm</button>
   <div class="search-box"><input type="text" id="pc-search" placeholder="Tìm theo tên hoặc mã sản phẩm..." oninput="renderProductCards()"></div>
 </div>
 <div id="products-list"></div>
@@ -248,74 +269,25 @@ body.dark .empty-msg{ color:var(--green-lime); }
 
 <script>
 var PRODUCTS = [
-{ id:"ht", code:"KSF-HT-002", name:"Hạt tiêu đen", en:"Black Peppercorn", category:"Gia vị", status:"Đang bán", qc:"Hộp 250g", cost:70000, markup:40,
-  pack_name:"HẠT TIÊU ĐEN — BLACK PEPPERCORN", pack_type:"Hộp giấy + túi zip bên trong", material:"Giấy couche 300gsm, cán màng mờ",
-  origin:"Xã Khe Sanh, tỉnh Quảng Trị", shelf_life:"6 tháng kể từ NSX", cert:"Đã có bản tự công bố ATTP",
-  supplier:"Hộ nông dân liên kết — bản Khe Sanh", season:"Thu hoạch tháng 2–4", min_stock:"20 hộp", note:"", on:true,
-  thanh_phan:"Hạt tiêu đen Khe Sanh nguyên hạt, thu hoạch và phơi sấy tự nhiên, không chất bảo quản.",
-  hdsd:"Dùng làm gia vị nêm nếm món ăn, có thể xay tươi hoặc dùng nguyên hạt.",
-  hdbq:"Bảo quản nơi khô ráo, thoáng mát, đậy kín sau khi sử dụng.",
-  canh_bao:"Sản phẩm dạng hạt nguyên, không phù hợp cho trẻ nhỏ dưới 3 tuổi do nguy cơ hóc nghẹn.",
-  nutrition:[["Năng lượng","251 kcal"],["Chất béo","3.3 g"],["Carbohydrate","64 g"],["Chất xơ","25 g"],["Đường","0.6 g"],["Protein","10 g"]] },
-{ id:"mc", code:"KSF-MC-003", name:"Mắc ca", en:"Macadamia Nut", category:"Hạt sấy", status:"Đang bán", qc:"Hộp 250g", cost:50000, markup:50,
-  pack_name:"MẮC CA SẤY KHE SANH — MACADAMIA NUT", pack_type:"Hộp thiếc + túi zip bên trong", material:"Hộp thiếc tráng thiếc, nắp giật",
-  origin:"Xã Khe Sanh, tỉnh Quảng Trị", shelf_life:"6 tháng kể từ NSX", cert:"Đã có bản tự công bố ATTP",
-  supplier:"Hợp tác xã mắc ca Khe Sanh", season:"Thu hoạch tháng 8–9", min_stock:"15 hộp", note:"", on:true,
-  thanh_phan:"Hạt mắc ca sấy khô nguyên vị, không tẩm ướp, không chất bảo quản.",
-  hdsd:"Dùng ăn vặt trực tiếp, hoặc làm nguyên liệu bánh, salad, ngũ cốc.",
-  hdbq:"Bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng, đậy kín sau khi mở.",
-  canh_bao:"Sản phẩm có chứa hạt, không phù hợp cho người dị ứng các loại hạt.",
-  nutrition:[["Năng lượng","718 kcal"],["Chất béo","76 g"],["Carbohydrate","14 g"],["Chất xơ","9 g"],["Đường","4.6 g"],["Protein","8 g"]] },
-{ id:"tbn", code:"KSF-TBN-004", name:"Tinh bột nghệ vàng", en:"Turmeric Starch", category:"Tinh bột", status:"Đang bán", qc:"Hộp 250g", cost:60000, markup:40,
-  pack_name:"TINH BỘT NGHỆ VÀNG KHE SANH — TURMERIC STARCH", pack_type:"Hũ nhựa PET nắp vặn", material:"Nhựa PET trong, nắp PP",
-  origin:"Xã Khe Sanh, tỉnh Quảng Trị", shelf_life:"6 tháng kể từ NSX", cert:"Đã có bản tự công bố ATTP",
-  supplier:"Hộ nông dân liên kết — vùng nghệ Khe Sanh", season:"Thu hoạch tháng 11–12", min_stock:"15 hộp", note:"", on:true,
-  thanh_phan:"Tinh bột nghệ vàng nguyên chất, chiết xuất tự nhiên từ củ nghệ Khe Sanh, không phụ gia.",
-  hdsd:"Pha với nước ấm hoặc mật ong để uống; dùng làm mặt nạ dưỡng da hoặc nguyên liệu chế biến món ăn.",
-  hdbq:"Bảo quản nơi khô ráo, thoáng mát, tránh ẩm và ánh nắng trực tiếp.",
-  canh_bao:"Phụ nữ mang thai, đang cho con bú hoặc đang dùng thuốc nên tham khảo ý kiến bác sĩ trước khi dùng liều cao.",
-  nutrition:[["Năng lượng","354 kcal"],["Chất béo","3.3 g"],["Carbohydrate","65 g"],["Chất xơ","21 g"],["Đường","3.2 g"],["Protein","8 g"]] },
-{ id:"tbs", code:"KSF-TBS-005", name:"Tinh bột sắn dây", en:"Cassava Starch", category:"Tinh bột", status:"Đang bán", qc:"Hộp 250g", cost:60000, markup:40,
-  pack_name:"TINH BỘT SẮN DÂY KHE SANH — CASSAVA STARCH", pack_type:"Hũ nhựa PET nắp vặn", material:"Nhựa PET trong, nắp PP",
-  origin:"Xã Khe Sanh, tỉnh Quảng Trị", shelf_life:"6 tháng kể từ NSX", cert:"Đã có bản tự công bố ATTP",
-  supplier:"Hộ nông dân liên kết — vùng sắn Khe Sanh", season:"Thu hoạch tháng 10–11", min_stock:"20 hộp", note:"", on:true,
-  thanh_phan:"Tinh bột sắn (khoai mì) nguyên chất, không tẩy trắng, không phụ gia.",
-  hdsd:"Dùng trong nấu ăn, làm bánh, hoặc tạo độ sánh cho món ăn.",
-  hdbq:"Bảo quản nơi khô ráo, thoáng mát, tránh ẩm mốc, đậy kín sau khi dùng.",
-  canh_bao:"Không sử dụng nếu sản phẩm có dấu hiệu ẩm mốc hoặc đổi màu bất thường.",
-  nutrition:[["Năng lượng","381 kcal"],["Chất béo","0.2 g"],["Carbohydrate","94 g"],["Chất xơ","0.9 g"],["Đường","0 g"],["Protein","0.3 g"]] },
-{ id:"tbnd", code:"KSF-TBND-006", name:"Tinh bột nghệ đen", en:"Black Turmeric Starch", category:"Tinh bột", status:"Đang bán", qc:"Hộp 250g", cost:85000, markup:40,
-  pack_name:"TINH BỘT NGHỆ ĐEN KHE SANH — BLACK TURMERIC STARCH", pack_type:"Hũ nhựa PET nắp vặn", material:"Nhựa PET trong, nắp PP",
-  origin:"Xã Khe Sanh, tỉnh Quảng Trị", shelf_life:"6 tháng kể từ NSX", cert:"Đã có bản tự công bố ATTP",
-  supplier:"Hộ nông dân liên kết — vùng nghệ Khe Sanh", season:"Thu hoạch tháng 11–12", min_stock:"10 hộp", note:"", on:true,
-  thanh_phan:"Tinh bột nghệ đen nguyên chất, chiết xuất tự nhiên, không phụ gia, không chất bảo quản.",
-  hdsd:"Pha với nước ấm để uống, hoặc dùng theo hướng dẫn y học cổ truyền.",
-  hdbq:"Bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.",
-  canh_bao:"Phụ nữ mang thai, đang cho con bú nên tham khảo ý kiến chuyên gia trước khi dùng.",
-  nutrition:[["Năng lượng","350 kcal"],["Chất béo","3 g"],["Carbohydrate","65 g"],["Chất xơ","20 g"],["Đường","3 g"],["Protein","8 g"]] },
-{ id:"ca", code:"KSF-CA-007", name:"100 Arabica Signature", en:"100 Arabica Signature", category:"Cà phê 100", status:"Đang bán", qc:"Túi giấy 250gr", cost:100000, markup:40,
-  pack_name:"100 ARABICA SIGNATURE", pack_type:"Túi giấy có van một chiều", material:"Giấy kraft, van thoát khí một chiều",
-  origin:"Xã Tà Cơn, huyện Hướng Hóa, tỉnh Quảng Trị", shelf_life:"12 tháng kể từ ngày rang", cert:"Đã có bản tự công bố ATTP",
-  supplier:"Hợp tác xã cà phê Tà Cơn Khe Sanh", season:"Thu hoạch tháng 10–12", min_stock:"20 túi", note:"Hạt rang mộc, rang vừa", on:false,
-  thanh_phan:"100% hạt cà phê Arabica Khe Sanh rang mộc, không tẩm ướp, không phụ gia.",
-  hdsd:"Xay vừa phải, pha phin hoặc máy pha cà phê; tỉ lệ tham khảo 20g bột : 100ml nước.",
-  hdbq:"Đậy kín túi sau khi mở, bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.",
-  canh_bao:"Sản phẩm chứa caffeine, không phù hợp cho người mẫn cảm với caffeine.",
-  nutrition:[["Năng lượng","200 kcal"],["Chất béo","14 g"],["Carbohydrate","44 g"],["Chất xơ","35 g"],["Đường","0 g"],["Protein","12 g"]] },
-{ id:"cl", code:"KSF-CL-008", name:"Liberica", en:"Liberica Coffee", category:"Cà phê 100", status:"Đang bán", qc:"Túi giấy 250gr", cost:120000, markup:40,
-  pack_name:"LIBERICA", pack_type:"Túi giấy có van một chiều", material:"Giấy kraft, van thoát khí một chiều",
-  origin:"Xã Tà Cơn, huyện Hướng Hóa, tỉnh Quảng Trị", shelf_life:"12 tháng kể từ ngày rang", cert:"Đã có bản tự công bố ATTP",
-  supplier:"Hộ nông dân liên kết — vùng cà phê Khe Sanh", season:"Thu hoạch tháng 8–10", min_stock:"15 túi", note:"Cà phê mít, hương đặc trưng", on:false,
-  thanh_phan:"100% hạt cà phê Liberica (cà phê mít) Khe Sanh rang mộc, không tẩm ướp, không phụ gia.",
-  hdsd:"Xay vừa phải, pha phin hoặc máy pha cà phê; tỉ lệ tham khảo 20g bột : 100ml nước.",
-  hdbq:"Đậy kín túi sau khi mở, bảo quản nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp.",
-  canh_bao:"Sản phẩm chứa caffeine, không phù hợp cho người mẫn cảm với caffeine.",
-  nutrition:[["Năng lượng","210 kcal"],["Chất béo","15 g"],["Carbohydrate","46 g"],["Chất xơ","33 g"],["Đường","0 g"],["Protein","11 g"]] }
+{id:'cfht001',code:'KSF-CFHT-001',category:'Cà phê',name:'Cà phê muối hoà tan (dòng Hoà tan)'},
+{id:'cfht002',code:'KSF-CFHT-002',category:'Cà phê',name:'Cà phê 3 trong 1 (dòng Hoà tan)'},
+{id:'cfpp001',code:'KSF-CFPP-001',category:'Cà phê',name:'Cà phê pha phin nguyên bản'},
+{id:'cfsga01',code:'KSF-CFSG-A01',category:'Cà phê',name:'Bột Arabica (Signature)'},
+{id:'cfsgl01',code:'KSF-CFSG-L01',category:'Cà phê',name:'Bột Liberica (Signature)'},
+{id:'cfdsa01',code:'KSF-CFDS-A01',category:'Cà phê',name:'Hạt Arabica (Đặc sản)'},
+{id:'cfdsl01',code:'KSF-CFDS-L01',category:'Cà phê',name:'Hạt Liberica (Đặc sản)'},
+{id:'tr001',code:'KSF-TR-001',category:'Trà',name:'Bột gừng chanh hoà tan'},
+{id:'tr002',code:'KSF-TR-002',category:'Trà',name:'Trà cascara'},
+{id:'dl001',code:'KSF-DL-001',category:'Dược liệu',name:'Cao tía tô hoà tan'},
+{id:'dl002',code:'KSF-DL-002',category:'Dược liệu',name:'Bột đinh lăng – chè vằng hoà tan'},
+{id:'tp001',code:'KSF-TP-001',category:'Thực phẩm',name:'Gừng viên'},
+{id:'tp002',code:'KSF-TP-002',category:'Thực phẩm',name:'Mắc ca'},
+{id:'tp003',code:'KSF-TP-003',category:'Thực phẩm',name:'Chuối sấy giòn'},
+{id:'tp004',code:'KSF-TP-004',category:'Thực phẩm',name:'Chuối sấy dẻo'},
+{id:'tp005',code:'KSF-TP-005',category:'Thực phẩm',name:'Tiêu khô'},
+{id:'tp006',code:'KSF-TP-006',category:'Thực phẩm',name:'Măng khô'}
 ];
 var activeCat = 'all';
-function fmt(n){ return n.toLocaleString('vi-VN') + 'đ'; }
-function priceOf(p){ return Math.round(p.cost*(1+p.markup/100)/1000)*1000; }
-function unitTotal(){ var t=0; PRODUCTS.forEach(function(p){ if(p.on) t+=priceOf(p); }); return t; }
 function setCat(cat,btn){
 activeCat=cat;
 document.querySelectorAll('.filter-tab').forEach(function(t){ t.classList.remove('active'); });
@@ -378,74 +350,31 @@ var list=document.getElementById('products-list');
 var empty=document.getElementById('pc-empty');
 var html='';
 var shown=0;
-PRODUCTS.forEach(function(p,i){
+PRODUCTS.forEach(function(p){
 var matchCat=(activeCat==='all')||(p.category===activeCat);
-var text=(p.name+' '+p.en+' '+p.code).toLowerCase();
+var text=(p.name+' '+p.category+' '+p.code).toLowerCase();
 var matchSearch=!q||text.indexOf(q)!==-1;
 if(!matchCat||!matchSearch) return;
 shown++;
-var statusClass=p.status==='Đang bán'?'pc-status-live':'pc-status-test';
 html+='<div class="pc-card" id="pc-card-'+p.id+'">';
 html+='<div class="pc-head" onclick="toggleCard(\''+p.id+'\')">';
 html+='<span class="pc-code">'+p.code+'</span>';
-html+='<div class="pc-title"><div class="pc-name">'+p.name+'</div><div class="pc-en">'+p.en+'</div></div>';
+html+='<div class="pc-title"><div class="pc-name">'+p.name+'</div><div class="pc-en">Danh mục '+p.category+'</div></div>';
 html+='<span class="pc-cat-pill">'+p.category+'</span>';
-html+='<span class="pc-status-pill '+statusClass+'">'+p.status+'</span>';
+html+='<span class="pc-status-pill pc-status-test">Chưa cập nhật</span>';
 html+='<span class="pc-chev">›</span>';
 html+='</div>';
 html+='<div class="pc-body">';
 html+=designPanel(p);
-
-// Label-style layout (matches the real packaging label)
-var nutritionRows='';
-p.nutrition.forEach(function(row){
-  nutritionRows+='<div class="pc-nut-row"><span>'+row[0]+'</span><span>'+row[1]+'</span></div>';
-});
-html+='<div class="pc-label-title">'+p.name.toUpperCase()+'</div>';
-html+='<div class="pc-label-grid">';
-html+='<div class="pc-label-left">';
-html+='<h5>Thành phần</h5><p>'+p.thanh_phan+'</p>';
-html+='<h5>Hướng dẫn sử dụng</h5><p>'+p.hdsd+'</p>';
-html+='<h5>Hướng dẫn bảo quản</h5><p>'+p.hdbq+'</p>';
-html+='<h5>Cảnh báo</h5><p>'+p.canh_bao+'</p>';
-html+='</div>';
-html+='<div class="pc-label-right">';
-html+='<div class="pc-nutrition-box"><h5>Thông tin dinh dưỡng</h5><div class="pc-nut-sub">Giá trị dinh dưỡng trung bình có trong 100g</div>'+nutritionRows+'</div>';
-html+='<div class="pc-nsx-box">NSX: ___________<br>HSD: '+p.shelf_life+'</div>';
-html+='</div>';
-html+='</div>';
-
-html+='<div class="pc-fgroup"><h4>Sản xuất &amp; bao bì</h4>';
-html+=field('Tên in trên bao bì',p.pack_name);
-html+=field('Quy cách đóng gói',p.qc);
-html+=field('Loại bao bì',p.pack_type);
-html+=field('Vật liệu bao bì',p.material);
-html+=field('Vùng nguyên liệu / nguồn gốc',p.origin);
-html+=field('Chứng nhận ATTP',p.cert);
-html+='</div>';
-html+='<div class="pc-fgroup"><h4>Giá thành</h4>';
-html+='<div class="pc-frow"><span class="pc-flabel">Giá nhập</span><span class="pc-fvalue"><input type="number" id="cost-'+p.id+'" value="'+p.cost+'" class="fixed" readonly>đ/đơn vị</span></div>';
-html+='<div class="pc-frow"><span class="pc-flabel">% lãi</span><span class="pc-fvalue"><input type="number" id="markup-'+p.id+'" value="'+p.markup+'" step="1" min="0" max="300" oninput="onMarkup(this,'+i+')">%</span></div>';
-html+='<div class="pc-frow"><span class="pc-flabel">Giá bán</span><span class="pc-fvalue auto-price" id="price-'+p.id+'">'+fmt(priceOf(p))+'</span></div>';
-html+='</div>';
-html+='<div class="pc-fgroup"><h4>Quản lý &amp; vận hành</h4>';
-html+=field('Nhà cung cấp / đầu mối thu mua',p.supplier);
-html+=field('Mùa vụ thu hoạch',p.season);
-html+=field('Tồn kho tối thiểu cảnh báo',p.min_stock);
-html+=field('Ghi chú',p.note);
+html+='<div class="catalog-meta-grid">';
+html+='<section class="catalog-block publication-content"><h4>Nội dung công bố</h4><p class="status-empty">Chưa cập nhật</p><small>Bổ sung thành phần, hướng dẫn sử dụng, bảo quản, cảnh báo và thông tin pháp lý khi hồ sơ được duyệt.</small></section>';
+html+='<section class="catalog-block design-file-status"><h4>File thiết kế</h4><p class="status-empty">Chưa cập nhật</p><small>Đường dẫn hoặc file thiết kế hoàn thiện sẽ được bổ sung ở giai đoạn bàn giao.</small></section>';
 html+='</div>';
 html+='</div></div>';
 });
 list.innerHTML=html;
 empty.style.display=shown?'none':'block';
 hydrateDesignPreviews();
-}
-function onCost(el,i){ PRODUCTS[i].cost=parseInt(el.value,10)||0; sync(); }
-function onMarkup(el,i){ PRODUCTS[i].markup=parseInt(el.value,10)||0; sync(); }
-function sync(){
-PRODUCTS.forEach(function(p){
-var price=document.getElementById('price-'+p.id);if(price) price.textContent=fmt(priceOf(p));
-});
 }
 function toggleTheme(){
   var dark = document.body.classList.toggle('dark');
